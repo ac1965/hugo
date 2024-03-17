@@ -1,14 +1,18 @@
-* installation
+# installation
 
 ``` bash
 git clone --recursive https://github.com/ac1965/hugo.git hugo-blog
 ```
 
-* server (and generation)
-hugo server (-D)
+# server (and generation)
 
-* ox-hugo
-** post
+    hugo server (-D)
+
+# ox-hugo
+## post
+
 C-c c b
-** generate md files
+
+## generate md files
+
 C-c C-e H A
