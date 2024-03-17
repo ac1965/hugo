@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Not Good Father</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>https://www.ty07.net/tags/python/</link>
     <description>Recent content in Python on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:02 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Test Syntaxhighliter</title>
-      <link>http://localhost:1313/post/2009-7fbf-eb10/</link>
+      <link>https://www.ty07.net/post/2009-7fbf-eb10/</link>
       <pubDate>Mon, 06 Jul 2009 19:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2009-7fbf-eb10/</guid>
+      <guid>https://www.ty07.net/post/2009-7fbf-eb10/</guid>
       <description>PyBlosxom 関係ではないが、SyntaxHighlighter を入れてみて。 #! /usr/bin/env python import sys import re import poplib, email from email import Header host = &amp;#39;localhost&amp;#39; port = &amp;#39;PORT&amp;#39; account = &amp;#39;MAIL-ADDRESS&amp;#39; password = &amp;#39;PASSWORD&amp;#39; s = poplib.POP3 (host, port) s.apop (account, password) n = len</description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linu on Not Good Father</title>
-    <link>http://localhost:1313/tags/linu/</link>
+    <link>https://www.ty07.net/tags/linu/</link>
     <description>Recent content in Linu on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:03 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/linu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/linu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xorg</title>
-      <link>http://localhost:1313/post/2010-bba0-bea3/</link>
+      <link>https://www.ty07.net/post/2010-bba0-bea3/</link>
       <pubDate>Tue, 01 Jun 2010 07:39:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2010-bba0-bea3/</guid>
+      <guid>https://www.ty07.net/post/2010-bba0-bea3/</guid>
       <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。 boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.9</description>
     </item>
   </channel>

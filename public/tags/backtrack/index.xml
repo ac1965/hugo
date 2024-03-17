@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Backtrack on Not Good Father</title>
-    <link>http://localhost:1313/tags/backtrack/</link>
+    <link>https://www.ty07.net/tags/backtrack/</link>
     <description>Recent content in Backtrack on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:03 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>USB Encrypt for backtrack</title>
-      <link>http://localhost:1313/post/2010-3bdc-01ca/</link>
+      <link>https://www.ty07.net/post/2010-3bdc-01ca/</link>
       <pubDate>Sun, 04 Apr 2010 17:50:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2010-3bdc-01ca/</guid>
+      <guid>https://www.ty07.net/post/2010-3bdc-01ca/</guid>
       <description>backtrack4のフォーラムを読んでいたら教えて君がいたのでフォローした。 内容は distro iso を更新する方法だったが、 bt4-customise.</description>
     </item>
   </channel>

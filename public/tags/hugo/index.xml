@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on Not Good Father</title>
-    <link>http://localhost:1313/tags/hugo/</link>
+    <link>https://www.ty07.net/tags/hugo/</link>
     <description>Recent content in Hugo on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:03 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo</title>
-      <link>http://localhost:1313/post/2020-64ac-ab0e/</link>
+      <link>https://www.ty07.net/post/2020-64ac-ab0e/</link>
       <pubDate>Tue, 27 Oct 2020 22:46:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2020-64ac-ab0e/</guid>
+      <guid>https://www.ty07.net/post/2020-64ac-ab0e/</guid>
       <description>Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが &amp;#x1f601; EMOJI-CHEAT-SHEET インストール Homebrew はインストール済み</description>
     </item>
   </channel>

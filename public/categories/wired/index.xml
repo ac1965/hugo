@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wired on Not Good Father</title>
-    <link>http://localhost:1313/categories/wired/</link>
+    <link>https://www.ty07.net/categories/wired/</link>
     <description>Recent content in Wired on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:04 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/wired/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/categories/wired/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean</title>
-      <link>http://localhost:1313/post/2024-32af-0903/</link>
+      <link>https://www.ty07.net/post/2024-32af-0903/</link>
       <pubDate>Sat, 16 Mar 2024 13:14:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2024-32af-0903/</guid>
+      <guid>https://www.ty07.net/post/2024-32af-0903/</guid>
       <description>イアフォンは、それまで常用のSHUREのSE215(無印)のコネクター部分が壊れた上に、 Apple AirPods Proは落としてシャリシャリしているしSHURE</description>
     </item>
   </channel>

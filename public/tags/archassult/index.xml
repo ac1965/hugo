@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Archassult on Not Good Father</title>
-    <link>http://localhost:1313/tags/archassult/</link>
+    <link>https://www.ty07.net/tags/archassult/</link>
     <description>Recent content in Archassult on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:03 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/archassult/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/archassult/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Packer for Archassult</title>
-      <link>http://localhost:1313/post/2015-92a5-278e/</link>
+      <link>https://www.ty07.net/post/2015-92a5-278e/</link>
       <pubDate>Tue, 28 Apr 2015 14:24:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2015-92a5-278e/</guid>
+      <guid>https://www.ty07.net/post/2015-92a5-278e/</guid>
       <description>すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済</description>
     </item>
   </channel>

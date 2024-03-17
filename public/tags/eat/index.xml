@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Eat on Not Good Father</title>
-    <link>http://localhost:1313/tags/eat/</link>
+    <link>https://www.ty07.net/tags/eat/</link>
     <description>Recent content in Eat on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:11:03 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/eat/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/eat/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>貝殻喫茶室</title>
-      <link>http://localhost:1313/post/2021-b683-9118/</link>
+      <link>https://www.ty07.net/post/2021-b683-9118/</link>
       <pubDate>Sun, 28 Feb 2021 19:50:00 +0900</pubDate>
-      <guid>http://localhost:1313/post/2021-b683-9118/</guid>
+      <guid>https://www.ty07.net/post/2021-b683-9118/</guid>
       <description>貝殻弁当をテイクアウトした時に、パンもテイクアウトしたいね、って店主さんの奥様に話したんだ。 早くも、週末に実現させていただいた。パンセットを</description>
     </item>
   </channel>
