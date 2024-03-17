@@ -2,7 +2,7 @@
 title: "What Blog?"
 author: ["YAMASHITA Takao"]
 date: 2016-06-18T11:14:00+09:00
-lastmod: 2024-03-17T18:08:19+09:00
+lastmod: 2024-03-17T19:12:13+09:00
 tags: ["tweet"]
 draft: false
 ---
