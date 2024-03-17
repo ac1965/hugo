@@ -6,14 +6,14 @@
     <description>Recent content in Xorg on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:10 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/xorg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xorg</title>
       <link>https://www.ty07.net/post/2010-bba0-bea3/</link>
       <pubDate>Tue, 01 Jun 2010 07:39:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-bba0-bea3/</guid>
-      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。 boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.9</description>
+      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。&#xA;boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.97+にしてみたが multiboot にはまだ調整されていないみたい。 次のように記述して(/etc/boot.conf)、 `boot-update&amp;rsquo; とタイプインするればよい。楽チンだけど、 &amp;ldquo;Backtrack 4&amp;rdquo; は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。 まぁ、/boot/grub/grub.cfg を手修正すればよい。&#xA;boot { path /boot generate grub default &amp;#34;Funtoo Linux&amp;#34; timeout 3 } &amp;#34;Funtoo Linux&amp;#34; { kernel /kernel-genkernel-x86[-v] initrd initramfs-genkernel-x86[-v] params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile params += dolvm real_root=/dev/mapper/LVG-root params += i915.modeset=1 fbcon=map:1 params += ramdisk=8192 quiet init=/linuxrc } &amp;#34;Backtrack 4&amp;#34; { kernel /bt4/vmlinuz initrd /bt4/initrd.gz params += BOOT=casper boot=casper persistent rw quiet params += real_root=auto } xorg-1.</description>
     </item>
   </channel>
 </rss>

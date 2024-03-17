@@ -6,14 +6,14 @@
     <description>Recent content in Backtrack4 on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:10 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/backtrack4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xmonad for Backtrack4</title>
       <link>https://www.ty07.net/post/2010-3be9-c756/</link>
       <pubDate>Mon, 08 Mar 2010 08:23:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-3be9-c756/</guid>
-      <description>backtrack4 に xmonad を入れてみた。 [[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]] $HOME/.xmonad/xmonad.hs import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] ,</description>
+      <description>backtrack4 に xmonad を入れてみた。&#xA;[[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]]&#xA;$HOME/.xmonad/xmonad.hs import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] , [ title =? t --&amp;gt; doFloat | t &amp;lt;- myOtherFloats] , [ className =?</description>
     </item>
   </channel>
 </rss>

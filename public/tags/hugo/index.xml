@@ -6,14 +6,14 @@
     <description>Recent content in Hugo on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:11 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo</title>
       <link>https://www.ty07.net/post/2020-64ac-ab0e/</link>
       <pubDate>Tue, 27 Oct 2020 22:46:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2020-64ac-ab0e/</guid>
-      <description>Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが &amp;#x1f601; EMOJI-CHEAT-SHEET インストール Homebrew はインストール済み</description>
+      <description>Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが &amp;#x1f601;&#xA;EMOJI-CHEAT-SHEET&#xA;インストール Homebrew はインストール済みとして、&#xA;$ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。&#xA;$ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。&#xA;自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo.git ./hugo-blog $ cd hugo-blog $ git clone git@github.com:ac1965/anatole-ext themes/anatole-ext $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。&#xA;`deploy.sh&#39; hexo と大きく違うのは deploy は利用者まかせかな。&#xA;私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.</description>
     </item>
   </channel>
 </rss>

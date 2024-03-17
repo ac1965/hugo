@@ -7,13 +7,24 @@ theme = 'github-style'
 enableEmoji = true
 enableInlineShortcodes = true
 enableGitInfo = true
-hasCJKLanguage = true
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 
 [Params]
-subtitle = 'The sound, old pond and frog jump into water.'
+  description = 'The sound, old pond and frog jump into water.'
+  author = 'YAMASHITA, Takao'
+  github = 'ac1965'
+  twitter = 'ac1965'
+  facebook = 'ac1965'
+  instagram = 'tjy1965'
+  email = 'ac1965@gmail.com'
+  url = 'https://ty07.net'
+  rss = true
+  lastmod = true
+  favicon = '/images/github.com'
+  headerIcon = '/images/GitHub-Mark-Light-32px.png'
+  location = 'Japan, /dev/urandom'
+  enableGitalk = true
 
-[Author]
-author = 'ac1965'
-github = 'ac1965'
-twitter = 'ac1965'
-instagram = 'ac1965'
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]

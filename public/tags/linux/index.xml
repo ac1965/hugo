@@ -6,21 +6,21 @@
     <description>Recent content in Linux on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:10 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guruplug　届くまでにやったこと</title>
       <link>https://www.ty07.net/post/2010-ceb7-ee44/</link>
       <pubDate>Wed, 14 Apr 2010 23:31:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-ceb7-ee44/</guid>
-      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug</description>
+      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう&#xA;クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。&#xA;参考にしたポイント cross-development Building Kernel GuruPlug クロスコンパイルは GNU Hurd で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。&#xA;クロスコンパイル環境のセットアップ # emerge -av portage-utils crossdev # crossdev armv5tel-softfloat-linux-gnueabi U-Boot とカーネルセットアップ これは Wiki に書いてあるとおり。 最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。&#xA;# git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git # cd u-boot-marvell.git # git checkout -b testing origin/testing # make mrproper # make guruplug_config # make u-boot.kwb CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- # cp tools/mkimage /usr/bin # wget http://www.plugcomputer.org/plugwiki/images/8/81/Guruplug-patchset.tar.bz2 # tar xfj Guruplug-patchset.tar.bz2 # git clone git://git.</description>
     </item>
     <item>
       <title>New PC</title>
       <link>https://www.ty07.net/post/2009-7fbf-eb12/</link>
       <pubDate>Sat, 14 Nov 2009 14:22:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2009-7fbf-eb12/</guid>
-      <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用の</description>
+      <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。&#xA;Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。&#xA;パーティションレイアウトはこんな感じで。&#xA;fdisk -l ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638+ 83 Linux /dev/sdc2 9437 9497 489982+ 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux /etc/fstab /dev/sde1 /boot ext3 noauto,noatime 1 2 /dev/mapper/root / ext4 noatime 0 1 /dev/mapper/swap none swap sw 0 0 /dev/cdrom /mnt/cdrom auto noauto,ro 0 0 /dev/fd0 /mnt/floppy auto noauto 0 0 none /proc/sys/fs/binfmt_misc binfmt_misc defaults 0 0 /var/tmp/jail/portage /usr/portage none bind,rw 0 0 /var/tmp/jail/local-portage /usr/local/portage none bind,rw 0 0 /var/tmp/jail/distfiles /usr/portage/distfiles none bind,rw 0 0 Live CDの起動は、Grubで。 # This is a sample grub.</description>
     </item>
   </channel>
 </rss>

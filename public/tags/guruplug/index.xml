@@ -6,28 +6,28 @@
     <description>Recent content in Guruplug on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:11 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/guruplug/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guruplug Arrived</title>
       <link>https://www.ty07.net/post/2010-e6dc-e8c7/</link>
       <pubDate>Mon, 12 Jul 2010 23:31:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-e6dc-e8c7/</guid>
-      <description>出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。 もしかしたら、Plus 注文と間違えられてかも。 一昨日Globa</description>
+      <description>出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。&#xA;もしかしたら、Plus 注文と間違えられてかも。 一昨日GlobalScale社に「まだ発送しない? 」のメールを送った際に、 「俺が頼んだのは Plus じゃないよ」と付け加えたら翌日に 「明日送るから」っていうメールが入っていたんだ。&#xA;熱くなるのは Plus 同様かも。どこまで熱くなるかは、次回。 (週末かな。でも、なんかイベントあったような気がする&amp;hellip;)&#xA;おきまりの first impression ということで、お写真を 前のブログサイトにアップロードした画像なのでないw&#xA;JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0)を確認したら&#xA;:CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら&#xA;usb 2-2: FTDI USB Serial Device converter now attached to &amp;lt;font color=&amp;#34;red&amp;#34;&amp;gt;ttyUSB0 screen /dev/ttyUSB0 115200 でターミナルをあげておく。&#xA;U-Bootの確認 U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17) Marvell-Plug2 SoC: Kirkwood 88F6281_A0 DRAM: 512 MB NAND: 512 MiB In: serial Out: serial Err: serial Net: egiga0 88E1121 Initialized on egiga0 Hit any key to stop autoboot: 3  0 Marvell&amp;gt;&amp;gt; help ?</description>
     </item>
     <item>
       <title>Guruplug　届くまでにやったこと</title>
       <link>https://www.ty07.net/post/2010-ceb7-ee44/</link>
       <pubDate>Wed, 14 Apr 2010 23:31:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-ceb7-ee44/</guid>
-      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug</description>
+      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう&#xA;クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。&#xA;参考にしたポイント cross-development Building Kernel GuruPlug クロスコンパイルは GNU Hurd で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。&#xA;クロスコンパイル環境のセットアップ # emerge -av portage-utils crossdev # crossdev armv5tel-softfloat-linux-gnueabi U-Boot とカーネルセットアップ これは Wiki に書いてあるとおり。 最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。&#xA;# git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git # cd u-boot-marvell.git # git checkout -b testing origin/testing # make mrproper # make guruplug_config # make u-boot.kwb CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- # cp tools/mkimage /usr/bin # wget http://www.plugcomputer.org/plugwiki/images/8/81/Guruplug-patchset.tar.bz2 # tar xfj Guruplug-patchset.tar.bz2 # git clone git://git.</description>
     </item>
     <item>
       <title>Guruplug Std.</title>
       <link>https://www.ty07.net/post/2010-f5af-e341/</link>
       <pubDate>Thu, 18 Feb 2010 20:00:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-f5af-e341/</guid>
-      <description>今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLi</description>
+      <description>今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLinuxキットの guruplug std. の注文をした。４月から配送が始まるので５月までには届くだろうか。&#xA;http://www.plugcomputer.org/ http://plugcomputer.org/plugwiki/index.php?title=Main_Page http://www.openplug.org/data/ </description>
     </item>
   </channel>
 </rss>

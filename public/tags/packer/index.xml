@@ -6,14 +6,14 @@
     <description>Recent content in Packer on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Mar 2024 14:40:06 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2024 17:52:11 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/packer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Packer for Archassult</title>
       <link>https://www.ty07.net/post/2015-92a5-278e/</link>
       <pubDate>Tue, 28 Apr 2015 14:24:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2015-92a5-278e/</guid>
-      <description>すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済</description>
+      <description>すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。&#xA;作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 * Cuckooで簡易マルウェア自動解析をしよう&#xA;* ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent.</description>
     </item>
   </channel>
 </rss>

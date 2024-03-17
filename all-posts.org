@@ -2636,13 +2636,15 @@ CLOSED: [2024-03-16 Sat 13:14]
 :EXPORT_HUGO_LASTMOD:
 :END:
 イアフォンは、それまで常用のSHUREのSE215(無印)のコネクター部分が壊れた上に、
-Apple AirPods Proは落としてシャリシャリしているし[[https://www.amazon.co.jp/dp/B09CZHN9VF/ref=sspa_dk_detail_0?pd_rd_i=B09CZHN9VF&pd_rd_w=rUZbI&content-id=amzn1.sym.f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_p=f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_r=J7R8B10MRFQNY5X13CEZ&pd_rd_wg=mIVsH&pd_rd_r=89b7d26a-db8f-4b66-9e1d-d0d1e9643baf&s=musical-instruments&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1][SHURE AONIC 215]]のMMXコネクタの接点不良で片耳が聴こえない。
+Apple AirPods Proは落としてシャリシャリしているし[[https://www.amazon.co.jp/dp/B09CZHN9VF/ref=sspa_dk_detail_0?pd_rd_i=B09CZHN9VF&pd_rd_w=rUZbI&content-id=amzn1.sym.f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_p=f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_r=J7R8B10MRFQNY5X13CEZ&pd_rd_wg=mIVsH&pd_rd_r=89b7d26a-db8f-4b66-9e1d-d0d1e9643baf&s=musical-instruments&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1][ SHURE AONIC 215]] のMMXコネクタの接点不良で片耳が聴こえない。
 
-そんな状況で中華イアフォンとしてははじめて昨年(2023年10月)に買った[[https://www.amazon.co.jp/1DDダイナミック型HiFiイヤホン-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C39PK494?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C39PK494&psc=1&ref_=pd_bap_d_grid_rp_0_16_i][LINKSOULのKiwi Ears Dolce]]で有線イアフォンの深淵に浸かってしまった。
+そんな状況で中華イアフォンとしては初めて昨年(2023年10月)に買った[[https://www.amazon.co.jp/1DDダイナミック型HiFiイヤホン-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C39PK494?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C39PK494&psc=1&ref_=pd_bap_d_grid_rp_0_16_i][ LINKSOULのKiwi Ears Dolce]] で有線イアフォンの深淵に浸かってしまった。
+
 でも、リケーブルしてDolceを使っていたけど、左耳がコネクタから外れてなくしてしまった🥲
 
-その次に買ったのは同じKiwiの[[https://www.amazon.co.jp/Linsoul-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C48QLNSQ?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C48QLNSQ&psc=1&ref_=pd_bap_d_grid_rp_0_17_i][Linsoul Kiwi Ears Quartet]]だけどデカいのとステムが太くて、常用できなかった。
-そんな中で、[[https://www.amazon.co.jp/dp/B097XTBYV8?linkCode=sl1&tag=ymr1107-22&linkId=01d6a9862f87a25980ed8c8ccafc40b0&language=ja_JP&ref_=as_li_ss_tl&th=1][Yinyoo CCZ Coffee Bean]]のネーミングとコスト面でAmazonでポチった👇
+その次に買ったのは同じKiwiEarsの [[https://www.amazon.co.jp/Linsoul-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C48QLNSQ?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C48QLNSQ&psc=1&ref_=pd_bap_d_grid_rp_0_17_i][Linsoul Kiwi Ears Quartet]] だけどデカいのとステムが太くて常用できなかった。
+[[https://www.amazon.co.jp/dp/B097XTBYV8?linkCode=sl1&tag=ymr1107-22&linkId=01d6a9862f87a25980ed8c8ccafc40b0&language=ja_JP&ref_=as_li_ss_tl&th=1][Yinyoo CCZ Coffee Bean]] はネーミングとコスト面でAmazonでポチった👇
 
 寝ながらフォンとしても、音質・音圧も好みで一軍利用。
+
 [[file:/images/coffee-bean.png]]
