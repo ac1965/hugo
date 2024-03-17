@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Music on Not Good Father</title>
+    <link>http://localhost:1313/tags/music/</link>
+    <description>Recent content in Music on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 17 Mar 2024 14:02:33 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/music/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021 GW 大瀧詠一</title>
+      <link>http://localhost:1313/blog/2021-ae45-5638/</link>
+      <pubDate>Thu, 29 Apr 2021 09:02:00 +0900</pubDate>
+      <guid>http://localhost:1313/blog/2021-ae45-5638/</guid>
+      <description>2021年のGWに入った。今年は 4/30を休みにしたから8日連休になった :-) 大瀧詠一さんを久しぶりに聴きたくなってググってたら、ナイアガラ・サ</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,2648 @@
+#-*- mode: org -*-
+#+title: Hugo blog source
+#+author: YAMASHITA Takao
+#+hugo_base_dir: ./
+
+#+options: ^:{}
+#+hugo_auto_set_lastmod: t
+#+hugo_section: blog
+
+* blog
+** DONE Test Syntaxhighliter
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2009-7fbf-eb10
+:EXPORT_DATE: 2009-07-06 19:00:00
+:EXPORT_HUGO_TAGS: pybloxsom Syntaxhighliter python
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+PyBlosxom
+関係ではないが、[[http://alexgorbatchev.com/wiki/SyntaxHighlighter][SyntaxHighlighter]]
+を入れてみて。
+#+begin_src python
+  #! /usr/bin/env python
+
+  import sys
+  import re
+  import poplib, email
+  from email import Header
+
+  host = 'localhost'
+  port = 'PORT'
+  account = 'MAIL-ADDRESS'
+  password = 'PASSWORD'
+
+  s = poplib.POP3 (host, port)
+  s.apop (account, password)
+  n = len (s.list ()[1])
+
+  # X-Spambayes-MailId: 1238488913
+  for i in range (n):
+      l = s.retr (i+1)[1]
+      msg = email.message_from_string ('\n'.join (l))
+      subject = Header.decode_header (msg.get ('subject'))[0][0]
+      dtispamsign = Header.decode_header (msg.get ('x-dti-spam-flag'))[0][0]
+      spamsign = Header.decode_header (msg.get ('x-spam-flag'))[0][0]
+      mailid = Header.decode_header (msg.get ('x-spam-probability'))[0][0]
+      if dtispamsign == 'Yes':
+          print '<D>', i+1, spamsign, dtispamsign, subject
+          s.dele(i+1)
+      elif spamsign == 'Yes':
+          print '<D>', i+1, spamsign, dtispamsign, subject
+          s.dele(i+1)
+      else:
+          print '   ', i+1, spamsign, dtispamsign, subject
+
+  s.quit ()
+#+end_src
+** DONE New PC
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2009-7fbf-eb12
+:EXPORT_DATE: 2009-11-14 14:22:36
+:EXPORT_HUGO_TAGS: linux
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+息子が iPod nano
+を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC
+901-X という少し古めのUMPCなので、外付けディスクを
+Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+
+Live CD のイメージ作成に、 以前は metro
+を使ってましたが、自分しか使わないのでもっと手軽に。
+
+パーティションレイアウトはこんな感じで。
+
+*** fdisk -l
+#+begin_src sh
+  ディスク /dev/sdc: 160.0 GB, 160041885696 バイト
+  ヘッド 255, セクタ 63, シリンダ 19457
+  Units = シリンダ数 of 16065 * 512 = 8225280 バイト
+  ディスク識別子: 0x1b155f8d
+
+  デバイス ブート     始点        終点    ブロック   Id  システム
+  /dev/sdc1               1        9436    75794638+  83  Linux
+  /dev/sdc2            9437        9497      489982+  83  Linux
+  /dev/sdc3            9498       19457    80003700   83  Linux
+#+end_src
+
+*** /etc/fstab
+#+begin_src sh
+  /dev/sde1       /boot       ext3        noauto,noatime  1 2
+  /dev/mapper/root        /       ext4        noatime     0 1
+  /dev/mapper/swap    none        swap        sw      0 0
+  /dev/cdrom      /mnt/cdrom  auto        noauto,ro   0 0
+  /dev/fd0        /mnt/floppy auto        noauto      0 0
+  none    /proc/sys/fs/binfmt_misc    binfmt_misc defaults    0 0
+  /var/tmp/jail/portage   /usr/portage    none        bind,rw     0 0
+  /var/tmp/jail/local-portage /usr/local/portage  none        bind,rw     0 0
+  /var/tmp/jail/distfiles /usr/portage/distfiles  none        bind,rw     0 0
+#+end_src
+
+*** Live CDの起動は、Grubで。
+#+begin_src sh
+  # This is a sample grub.conf for use with Genkernel, per the Gentoo handbook
+  # http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&chap=10#doc_chap2
+  # If you are not using Genkernel and you need help creating this file, you
+  # should consult the handbook. Alternatively, consult the grub.conf.sample that
+  # is included with the Grub documentation.
+
+  #color white/red black/red
+  #splashimage=/boot/splash.xpm.gz
+  splashimage=/boot/grub/bt4.xpm.gz
+
+  default 0
+  timeout 30
+  password --md5 $1$jBaL5/$pIpowSTX5ip2pDXllzSd90
+
+  title=Gentoo Linux (2.6.31-pentoo-r2)
+  root (hd0,0)
+  kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 root=/dev/ram0 \
+         crypt_root=/dev/sdc3 \
+         ramdisk=8192 quiet CONSOLE=/dev/tty1 \
+         resume=swap:/dev/mapper/swap init=/linuxrc
+
+  initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
+
+  # -- Backtrack4
+  title BT-4
+  root (hd0,0)
+  kernel /boot/bt4/vmlinuz  BOOT=casper boot=casper persistent rw quiet
+
+  initrd /boot/bt4/initrd.gz
+
+  title=USB stick Pentoo
+  root (hd0,0)
+  kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 root=/dev/ram0 \
+      root=/dev/ram0 cdroot aufs \
+      init=/linuxrc max_loop=256 nokeymap \
+      looptype=squashfs loop=/image/root-20091113.squashfs
+
+  initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
+
+  #title USB stick Pentoo
+  #root (hd0,0)
+  #kernel /boot/pentoo/pentoo \
+  #    root=/dev/ram0 cdroot aufs changes=/dev/sde2 \
+  #    init=/linuxrc max_loop=256 nokeymap \
+  #    looptype=squashfs loop=/pentoo/image-2009.squashfs
+  #initrd /boot/pentoo/pentoo.igz
+
+  #title USB stick Pentoo
+  #root (hd0,0)
+  #kernel /boot/kernel-genkernel-x86-2.6.29-pentoo-r2 \
+  #    root=/dev/ram0 cdroot aufs changes=/dev/sdc2 \
+  #    init=/linuxrc max_loop=256 nokeymap \
+  #    looptype=squashfs loop=/pentoo/image.squashfs
+  #
+  #initrd /boot/initramfs-genkernel-x86-2.6.29-pentoo-r2
+
+  title grub-install
+  lock
+  install (hd0,0)/boot/grub/stage1 d (hd0) (hd0,0)/boot/grub/stage2 p (hd0,0)/boot/grub/grub.conf
+
+  title Other Operating System - Microsoft Windows XP
+  lock
+      rootnoverify (hd0,0)
+      makeactive
+      chainloader +1
+
+  # vim:ft=conf:
+#+end_src
+
+*** Live CDの作成は chroot環境で。
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][CHROOT環境設定]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][コンパイル用]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/out.sh][CHROOT解除]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/mkrootimg.sh][MAKE
+  ROOT-IMAGE]]
+
+こんな感じで使います。CHROOTは私の環境では、"/var/tmp/jail/squashfs-root"
+#+begin_src sh
+  # ./in.sh
+  # cp chroot.sh ${CHROOT}/tmp
+  # chroot ${CHROOT} /tmp/chroot.sh
+  # ./out.sh
+  # ./mkrootimg.sh
+#+end_src
+** DONE awesome window manager
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-ad26-26d8
+:EXPORT_DATE: 2010-02-13 22:42:10
+:EXPORT_HUGO_TAGS: awesome
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+[[http://awesome.naquadah.org/][awesome]]　の設定をしなおしをした。そんなに変更はしていないように見えるけど、tag(他のWMでいうこところのワークスペース）を動的に生成する
+shifty
+というのを使ってみた。
+
+- git://github.com/bioe007/awesome-configs.git
+** DONE Guruplug Std.
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-f5af-e341
+:EXPORT_DATE: 2010-02-18 20:00:43
+:EXPORT_HUGO_TAGS: guruplug
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み
+   :PROPERTIES:
+   :CUSTOM_ID: 今なら2282010までjtagモジュールが無料の組み込み
+   :END:
+
+今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLinuxキットの
+[[http://www.globalscaletechnologies.com/p-31-guruplug-server-standard.aspx][guruplug
+std.]] の注文をした。４月から配送が始まるので５月までには届くだろうか。
+
+- [[http://www.plugcomputer.org/]]
+- [[http://plugcomputer.org/plugwiki/index.php?title=Main_Page]]
+- [[http://www.openplug.org/data/]]
+** DONE xmonad window manager
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-1620-4255
+:EXPORT_DATE: 2010-03-06 19:50:41
+:EXPORT_HUGO_TAGS: xmonad
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+awsome 最高と思っていたけど、[[http://xmonad.org/][Xmonad]]
+はさらにいいです。 キーボードで操作できて、awesome
+とは違い設定ファイルがヘタっても前の設定で動作するので使っている側としては安全だよね。
+awesome でいいなと思ってたものは大体ある。 bioe007 が書いた awesome の
+revelation は好きだったのでの、こういうのは xmonad
+にないか探しているところ。
+
+- git clone git://github.com/jelly/dotfiles.git
+** DONE Xmonad for Backtrack4
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-3be9-c756
+:EXPORT_DATE: 2010-03-08 08:23:09
+:EXPORT_HUGO_TAGS: xmonad backtrack4
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+backtrack4 に xmonad を入れてみた。
+
+[[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png][[[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]]]]
+
+- $HOME/.xmonad/xmonad.hs
+
+#+BEGIN_SRC sh
+  import XMonad
+  import XMonad.Config.Kde
+  import qualified XMonad.StackSet as W -- to shift and float windows
+
+  main = xmonad $ kdeConfig
+
+   { modMask = mod4Mask -- use the Windows button as mod
+   , manageHook = manageHook kdeConfig <+> myManageHook
+   }
+   where
+     myManageHook = composeAll . concat $
+       [ [ className   =? c --> doFloat           | c <- myFloats]
+       , [ title       =? t --> doFloat           | t <- myOtherFloats]
+       , [ className   =? c --> doF (W.shift "2") | c <- webApps]
+       , [ className   =? c --> doF (W.shift "3") | c <- ircApps]
+       ]
+     myFloats      = ["MPlayer", "Gimp"]
+     myOtherFloats = ["alsamixer"]
+     webApps       = ["Firefox-bin", "Opera"] -- open on desktop 2
+     ircApps       = ["Ksirc"]                -- open on desktop 3
+#+END_SRC
+
+- 設定
+
+#+BEGIN_SRC sh
+  # apt-get install language-pack-ja
+  # apt-get install scim scim-anthy kasumi
+  # apt-get install ttf-vlgothic
+  # apt-get install kde-i18n-ja
+  # apt-get install xmonad
+
+  $ cat $HOME/.kde3/env/set_window_manager.sh
+  KDEWM=/usr/bin/xmonad
+  $ chmod +x $HOME/.kde3/env/set_window_manager.sh
+#+END_SRC
+** DONE USB Encrypt for backtrack
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-3bdc-01ca
+:EXPORT_DATE: 2010-04-04 17:50:17
+:EXPORT_HUGO_TAGS: backtrack
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+[[http://www.backtrack-linux.org/forums/][backtrack4のフォーラム]]を読んでいたら教えて君がいたのでフォローした。
+内容は distro iso を更新する方法だったが、
+[[http://www.offensive-security.com/blog/backtrack/customising-backtrack-live-cd-the-easy-way/][bt4-customise.sh]]で出来るよって。
+
+さらに変更したものをポストしておく。squashfs を LUKS
+でカプセルするもの。元ネタは下のURL
+
+- http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html
+
+- bt4-customise.sh
+  [[[http://www.offensive-security.com/bt4-customise.sh][original]]]
+
+#+BEGIN_HTML
+  <embed type="application/x-shockwave-flash" src="http://ttyshare.com/t/afd4220f49ebdda620594a54f1c1181216a06a2a" width="480" height="288">
+#+END_HTML
+
+#+BEGIN_SRC sh
+  #!/bin/bash
+
+  btisoname=bt4.iso
+  btmodisoname=`basename $btisoname .iso`-mod.iso
+
+  luks_image=0
+  count=2560000
+
+  clear
+  echo "##############################################################"
+  echo "[*] BackTrack 4 customisation script"
+  echo "[*] Setting up the build environment..."
+
+  services="inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd"
+
+  test -d mnt || mkdir -p mnt
+  test -d extract-cd || mkdir -p extract-cd
+  test -d squashfs || mkdir -p squashfs
+  test -d container || mkdir -p container
+  mount -o loop,ro $btisoname mnt/
+  rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd
+  if $(file mnt/casper/filesystem.squashfs | grep -qi luks); then
+      luks_image=1
+      loopdev=`losetup -f`
+      losetup $loopdev mnt/casper/filesystem.squashfs
+      cryptsetup luksOpen $loopdev bt4
+      mount -o ro /dev/mapper/bt4 container/
+      mount -t squashfs -o loop,ro container/filesystem.squashfs squashfs
+  else
+      mount -t squashfs -o loop mnt/casper/filesystem.squashfs squashfs
+  fi
+  test -d edit || (
+      mkdir -p edit
+      echo "[*] Copying over files, please wait ... "
+
+      cp -a squashfs/* edit/
+  )
+
+  cp /etc/resolv.conf edit/etc/
+  cp /etc/hosts edit/etc/
+  cp /etc/fstab edit/etc/
+  cp /etc/mtab edit/etc/
+  test -f ~/.proxyuse && cp ~/.proxyuse edit/root
+
+  mount --bind /dev/ edit/dev
+  mount -t proc /proc edit/proc
+
+  echo "##############################################################"
+  echo "[*] Entering livecd. "
+  echo "##############################################################"
+  echo "[*] Now you can modify the LiveCD. At minimum, we recommend :"
+  echo "[*] apt-get update && apt-get upgrade & apt-get clean"
+  echo "##############################################################"
+  echo "[*] If you are running a large update, you might need to stop"
+  echo "[*] services like crond, udev, cups, etc in the chroot"
+  echo "[*] services like crond, udev, cups, etc in the chroot"
+  echo "[*] before exiting your chroot environment."
+  echo "[*] If you use proxy,  type \"source ~/.proxyuse\""
+  echo "##############################################################"
+  echo "[*] Once you have finished your modifications, type \"exit\""
+  echo "##############################################################"
+
+  chroot edit
+
+  echo "[*] Exited the build environemnt, unmounting images."
+
+  rm -rf edit/etc/mtab
+  rm -rf edit/etc/fstab
+  rm -rf edit/root/.bash_history
+  rm -rf edit/root/.proxyuse
+
+  umount edit/dev
+  umount edit/proc
+  umount squashfs
+  if [ "x${luks_image}" == "x1" ]; then
+      umount container
+      cryptsetup luksClose bt4
+      losetup -d $loopdev
+  fi
+  umount mnt
+
+  chmod +w extract-cd/casper/filesystem.manifest
+
+  echo "[*] Building manifest"
+  chroot edit dpkg-query \
+      -W --showformat='${Package} ${Version}\n' \
+      > extract-cd/casper/filesystem.manifest
+
+  for service in $services;do
+      chroot edit update-rc.d -f $service remove
+  done
+
+  REMOVE='ubiquity casper live-initramfs user-setup discover xresprobe os-prober libdebian-installer4'
+  for i in $REMOVE
+  do
+      sed -i "/${i}/d" extract-cd/casper/filesystem.manifest-desktop
+  done
+
+  cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
+
+  sed -i '/ubiquity/d' extract-cd/casper/filesystem.manifest-desktop
+
+  echo "[*] Building squashfs image..."
+  if [ "x${luks_image}" == "x1" ]; then
+      echo "[-] encrypt squashfs using"
+      if [ ! -f extract-cd/casper/filesystem.squashfs ]; then
+      echo "[>] encrypt squashfs making ($count MB)"
+      dd if=/dev/urandom of=extract-cd/casper/filesystem.squashfs bs=1024 count=$count
+      losetup $loopdev extract-cd/casper/filesystem.squashfs
+      cryptsetup -y --cipher aes-xts-plain --key-size 512 luksFormat $loopdev
+      else
+      losetup $loopdev extract-cd/casper/filesystem.squashfs
+      fi
+      cryptsetup luksOpen $loopdev bt4
+      mkfs.ext3 /dev/mapper/bt4
+      mount /dev/mapper/bt4 container/
+      mksquashfs edit container/filesystem.squashfs
+      umount container
+      cryptsetup luksClose bt4
+      losetup -d $loopdev
+  else
+      rm -rf extract-cd/casper/filesystem.squashfs
+      mksquashfs edit extract-cd/casper/filesystem.squashfs
+  fi
+
+  rm extract-cd/md5sum.txt
+
+  (cd extract-cd && find . -type f -print0 | xargs -0 md5sum > md5sum.txt)
+
+  cd extract-cd
+
+  echo "[*] Creating iso ..."
+
+  test -f ../${btmodisoname} && mv ../${btmodisoname} ../bt4-mod_prev.iso
+  mkisofs -b boot/grub/stage2_eltorito \
+      -no-emul-boot -boot-load-size 4 \
+      -boot-info-table \
+      -V "BT4" -cache-inodes -r -J -l \
+      -o ../${btmodisoname} .
+
+  cd ..
+
+  echo "[*] Your modified BT4 is in $(pwd)/${btmodisoname}"
+  echo "##############################################################"
+#+END_SRC
+** DONE Guruplug　届くまでにやったこと
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-ceb7-ee44
+:EXPORT_DATE: 2010-04-14 23:31:13
+:EXPORT_HUGO_TAGS: guruplug crossdev linux
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** guruplug が届く前に環境を作っておこう
+*** 1日目
+  :PROPERTIES:
+  :CUSTOM_ID: 日目
+  :END:
+
+   :PROPERTIES:
+   :CUSTOM_ID: guruplug-が届く前に環境を作っておこう
+   :END:
+
+クロスコンパイル環境とか、ルートファイルシステムなど。
+[[http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22][GuruPlug
+Wiki]] に加筆したものも含めて、めもです。
+
+**** 参考にしたポイント
+   :PROPERTIES:
+   :CUSTOM_ID: 参考にしたポイント
+   :END:
+
+- [[http://www.gentoo.org/proj/en/base/embedded/cross-development.xml][cross-development]]
+- [[http://computingplugs.com/index.php/Building_a_custom_kernel][Building
+  Kernel]]
+- [[http://www.plugcomputer.org/plugwiki/index.php/GuruPlug][GuruPlug]]
+
+クロスコンパイルは [[http://www.gnu.org/software/hurd/][GNU Hurd]]
+で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。
+
+**** クロスコンパイル環境のセットアップ
+   :PROPERTIES:
+   :CUSTOM_ID: クロスコンパイル環境のセットアップ
+   :END:
+
+#+BEGIN_SRC sh
+  # emerge -av portage-utils crossdev
+  # crossdev armv5tel-softfloat-linux-gnueabi
+#+END_SRC
+
+**** U-Boot とカーネルセットアップ
+   :PROPERTIES:
+   :CUSTOM_ID: u-boot-とカーネルセットアップ
+   :END:
+
+これは Wiki に書いてあるとおり。
+最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。
+
+#+BEGIN_SRC sh
+  # git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git
+  # cd u-boot-marvell.git
+  # git checkout -b testing origin/testing
+  # make mrproper
+  # make guruplug_config
+  # make u-boot.kwb CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi-
+  # cp tools/mkimage /usr/bin
+  # wget http://www.plugcomputer.org/plugwiki/images/8/81/Guruplug-patchset.tar.bz2
+  # tar xfj Guruplug-patchset.tar.bz2
+  # git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-2.6.33.y.git
+  # for p in guruplug-patchset/*; do patch -p1 -E -d linux-2.6.33.y.git < $p; done
+  # cd linux-2.6.33.y.git
+  # make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm clean
+  # make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm guruplug_defconfig
+  # make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm uImage
+  # make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules
+  # make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules_install INSTALL_MOD_PATH=/usr/armv5tel-softfloat-linux-gnueabi
+#+END_SRC
+
+**** mtd-toolsのセットアップ
+   :PROPERTIES:
+   :CUSTOM_ID: mtd-toolsのセットアップ
+   :END:
+
+git repository(git://git.infradead.org/mtd-utils.git)を使ってみる。
+ubifs でルートファイルシステムを構築する準備です。
+
+#+BEGIN_SRC sh
+  # ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild compile
+  # ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild merge
+  # ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild clean
+#+END_SRC
+
+**** ルートファイルシステムのセットアップ
+   :PROPERTIES:
+   :CUSTOM_ID: ルートファイルシステムのセットアップ
+   :END:
+
+crossdev で作ったクロスコンパイラで基本システム(stage1)を構築する。
+ところが、`cpio' でコンパイル失敗している。
+
+眠いので今日はここまで。
+
+#+BEGIN_SRC sh
+  # cd /usr/armv5tel-softfloat-linux-gnueabi
+  # mkdir etc
+  # cd etc
+  # ln -s /usr/portage/profiles/default/linux/arm/10.0 make.profile
+  # cp /tmp/make.conf-arm make.conf
+  # armv5tel-softfloat-linux-gnueabi-emerge -av @system
+#+END_SRC
+
+- 参考：/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf
+
+僕の環境なので同じである必要はない。 ROOT="..." の default は "/"
+なので指定しておかないとoverwrite されるので注意
+あと、クロスコンパイルの場合 CBUILD は必要。
+
+#+BEGIN_EXAMPLE
+  # NEVER change this
+  CHOST="armv5tel-softfloat-linux-gnueabi"
+  CBUILD=i686-pc-linux-gnu
+  CHOST=${CHOST}
+  ARCH="arm"
+  ROOT=/usr/${CHOST}/
+  ACCEPT_KEYWORDS="arm ~arm"
+
+  # You can edit these.
+  USE="-X -cdr -kde -gnome -qt -gtk -fortran -opengl -quicktime -cups \
+          -tcpd -apache -gpm -slang nls cjk \
+          -alsa -xscreensaver \
+          ssl userlocales apache2 sasl nptl nptlonly threads unicode utf8 \
+          bzip2 crypt loop-aes mysql mysqli sqlite xmlrpc bash-completion \
+          idn glibc-omitfp \
+          dvd dvdr cdda cddb \
+          mp3 vorbis wavepack wma mpeg ogg rtsp x264 win32codecs libv412 v4l2 v4l \
+          wifi bluetooth curl git -dso subversion lzma"
+
+  APACHE2_MODULES=" \
+          auth auth_basic authz_user authz_host authn_dbd authz_dbd dbd \
+          alias filter deflate mime mime_magic expires headers unique_id \
+          vhost_alias rewrite log_config logio env setenvif autoindex dir \
+          proxy proxy_http dav dav_fs \
+          "
+  APACHE2_MPMS="worker"
+
+  # Think twice about editing these.
+  MAKEOPTS="-j5"
+  CFLAGS="-Os -march=armv5te -pipe -fomit-frame-pointer"
+  CXXFLAGS="${CFLAGS}"
+
+  #FEATURES="distcc parallel-fetch userfetch userpriv"
+  FEATURES="parallel-fetch userfetch userpriv buildpkg"
+
+  PORTAGE_TMPDIR="/var/tmp/cross"
+  BUILD_PREFIX="${PORTAGE_TMPDIR}"
+
+  GENTOO_MIRRORS="http://gentoo.gg3.net/"
+
+  ACCEPT_LICENSE="*"
+#+END_EXAMPLE
+
+*** 2日目
+  :PROPERTIES:
+  :CUSTOM_ID: 日目-1
+  :END:
+
+**** cpioのコンパイルエラーは、stat(2)
+の引数が指定されていなかっただけだった。
+   :PROPERTIES:
+   :CUSTOM_ID: cpioのコンパイルエラーはstat2-の引数が指定されていなかっただけだった
+   :END:
+
+野良ebuild を狭んで、おけー。
+
+- src/filtypes.h の patch
+
+#+BEGIN_EXAMPLE
+  diff -urN cpio-2.11-/src/filetypes.h cpio-2.11/src/filetypes.h
+  --- cpio-2.11-/src/filetypes.h  2010-04-15 18:03:16.639694128 +0900
+  +++ cpio-2.11/src/filetypes.h   2010-04-15 18:04:03.545691921 +0900
+  @@ -82,4 +82,4 @@
+   #define lstat stat
+   #endif
+   int lstat ();
+  -int stat ();
+  +int stat (const char *path, struct stat *buf);
+#+END_EXAMPLE
+
+**** 野良ebuild cpio-2.11-r1.ebuild
+   :PROPERTIES:
+   :CUSTOM_ID: 野良ebuild-cpio-2.11-r1.ebuild
+   :END:
+
+#+BEGIN_EXAMPLE
+  # Copyright 1999-2010 Gentoo Foundation
+  # Distributed under the terms of the GNU General Public License v2
+  # $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $
+
+  inherit eutils
+
+  EAPI="2"
+
+  DESCRIPTION="A file archival tool which can also read and write tar files"
+  HOMEPAGE="http://www.gnu.org/software/cpio/cpio.html"
+  SRC_URI="mirror://gnu/cpio/${P}.tar.bz2"
+
+  LICENSE="GPL-3"
+  SLOT="0"
+  KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+  IUSE="nls"
+
+  src_configure() {
+      econf \
+          $(use_enable nls) \
+          --bindir=/bin \
+          --with-rmt=/usr/sbin/rmt \
+          || die
+  }
+
+  src_install() {
+      emake install DESTDIR="${D}" || die
+      dodoc ChangeLog NEWS README
+      rm "${D}"/usr/share/man/man1/mt.1 || die
+      rmdir "${D}"/usr/libexec || die
+  }
+
+  src_unpack() {
+      unpack ${A}
+      cd "${S}"
+      epatch "${FILESDIR}"/${P}-filetypes.patch
+  }
+#+END_EXAMPLE
+
+*** 3日目
+  :PROPERTIES:
+  :CUSTOM_ID: 日目-2
+  :END:
+
+**** クロス環境での stage1 がエラーで出来ていない状態
+   :PROPERTIES:
+   :CUSTOM_ID: クロス環境での-stage1-がエラーで出来ていない状態
+   :END:
+
+ものが届いていないのでまぁゆったりとな。 あとで、distcc
+でホストマシンでコンパイルできるように
+クロスコンパイル環境を作り直そう。
+
+クロス環境消して、ホスト環境とバージョンを合せておこうっと。
+
+SYSROOT を検索する必要があるため binutils-2.19.51.0.12 より上にする。
+[[http://bugs.gentoo.org/275666]]
+
+#+BEGIN_SRC sh
+  # crossdev --clean armv5tel-softfloat-linux-gnueabi
+  # emerge -p binutils linux-headers gcc glibc
+  ....
+  [ebuild   R   ] sys-devel/binutils-2.20.1
+  [ebuild   R   ] sys-kernel/linux-headers-2.6.29
+  [ebuild   R   ] sys-devel/gcc-4.3.3-r2
+  [ebuild   R   ] sys-libs/glibc-2.9_p20081201-r2
+  ...
+  # crossdev -t armv5tel-softfloat-linux-gnueabi \
+  #    --b 2.20.1 \
+  #    --k 2.6.29 \
+  #    --g 4.3.3-r2 \
+  #    --l 2.9_p20081201-r2 \
+  #    --ex-gdb
+#+END_SRC
+
+*** 4日目
+  :PROPERTIES:
+  :CUSTOM_ID: 日目-3
+  :END:
+
+**** クロスコンパイル環境で ARM(armv5tel)用の gentoo stage1
+ができたので動作確認をした
+   :PROPERTIES:
+   :CUSTOM_ID: クロスコンパイル環境で-armarmv5tel用の-gentoo-stage1-ができたので動作確認をした
+   :END:
+
+正しくは perl と Linux-PAM はクロスコンパイルができなかったので、 own
+で作ることになるが。
+
+**** [[http://www.gentoo.org/proj/en/base/embedded/handbook/?part=1&chap=5]]
+   :PROPERTIES:
+   :CUSTOM_ID: httpwww.gentoo.orgprojenbaseembeddedhandbookpart1chap5
+   :END:
+
+QEMU の user-mode + binfmt + chroot で動作確認をした。
+
+#+BEGIN_SRC sh
+  # export PS1="(`uname -m`:\W) "
+  (i684:/ ) USE="static" emerge --buildpkg --oneshot qemu-user
+  (i684:/ ) ROOT=/usr/armv5tel-softfloat-linux-gnueabi emerge --usepkgonly qemu-user
+  (i684:/ ) cat qemu-wrapper.c
+  #include <stdio.h>
+  #include <unistd.h>
+
+  int main(int argc, char **argv, char **envp) {
+      char *newargv[argc + 3];
+
+      newargv[0] = argv[0];
+      newargv[1] = "-cpu";
+      newargv[2] = "cortex-a8";
+
+     memcpy(&newargv[3], &argv[1], sizeof(*argv) * (argc - 1));
+     newargv[argc + 2] = NULL;
+     return execve("/usr/bin/qemu-arm", newargv, envp);
+  }
+  (i684:/ ) gcc -static qemu-wrapper.c -o qemu-wrapper
+  (i684:/ ) cp qemu-wrapper /usr/armv5tel-softfloat-linux-gnueabi
+  (i684:/ ) [ -d /proc/sys/fs/binfmt_misc ] || modprobe binfmt_misc
+  (i684:/ ) [ -f /proc/sys/fs/binfmt_misc/register ] || \
+  mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
+  (i684:/ ) echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/qemu-wrapper:' > /proc/sys/fs/binfmt_misc/register
+  (i684:/ ) cat /proc/sys/fs/binfmt_misc/arm
+  enabled
+  interpreter /qemu-wrapper
+  flags:
+  offset 0
+  magic 7f454c4601010100000000000000000002002800
+  mask ffffffffffffff00fffffffffffffffffeffffff
+  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage ] || \
+  install -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/proc ] || \
+  install -d /usr/armv5tel-softfloat-linux-gnueabi/proc
+  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/sys ] || \
+  install -d /usr/armv5tel-softfloat-linux-gnueabi/sys
+  (i684:/ ) mount --bind /usr/portage /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+  (i684:/ ) mount --bind /proc /usr/armv5tel-softfloat-linux-gnueabi/proc
+  (i684:/ ) mount --bind /sys /usr/armv5tel-softfloat-linux-gnueabi/sys
+  (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/busybox mdev -s
+  (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/bash --login
+  # export PS1="(`uname -m`:chroot:\W) "
+  (arm:chroot: /) env-update
+  (arm:chroot: /) exit
+  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/sys
+  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/proc
+  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+  (i684:/ ) umount /proc/sys/fs/binfmt_misc
+#+END_SRC
+** DONE Xorg
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-bba0-bea3
+:EXPORT_DATE: 2010-06-01 07:39:03
+:EXPORT_HUGO_TAGS: xorg linu
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。
+
+*** boot-update
+  :PROPERTIES:
+  :CUSTOM_ID: boot-update
+  :END:
+
+grubの設定支援かな？
+[[http://www.funtoo.org/en/funtoo/core/boot/][boot-update]]
+で記述されている代物です。 grub-1.97+にしてみたが multiboot
+にはまだ調整されていないみたい。 次のように記述して(/etc/boot.conf)、
+`boot-update' とタイプインするればよい。楽チンだけど、 "Backtrack 4"
+は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。
+まぁ、/boot/grub/grub.cfg を手修正すればよい。
+
+#+BEGIN_SRC sh
+  boot {
+      path /boot
+      generate grub
+      default "Funtoo Linux"
+      timeout 3
+  }
+
+  "Funtoo Linux" {
+      kernel /kernel-genkernel-x86[-v]
+      initrd initramfs-genkernel-x86[-v]
+      params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile
+      params += dolvm real_root=/dev/mapper/LVG-root
+      params += i915.modeset=1 fbcon=map:1
+      params += ramdisk=8192 quiet init=/linuxrc
+  }
+
+  "Backtrack 4" {
+      kernel /bt4/vmlinuz
+      initrd /bt4/initrd.gz
+      params += BOOT=casper boot=casper persistent rw quiet
+      params += real_root=auto
+  }
+#+END_SRC
+
+*** xorg-1.8
+  :PROPERTIES:
+  :CUSTOM_ID: xorg-1.8
+  :END:
+
+けっこう放置していたのでトライしてみた。
+
+**** MASKを外す
+   :PROPERTIES:
+   :CUSTOM_ID: maskを外す
+   :END:
+
+#+BEGIN_SRC sh
+  echo 'x11-base/xorg-server' >> /etc/portage/package.unmask
+  echo 'x11-base/xorg-server * ~* **' >> /etc/portage/package.keywords/x11-base
+#+END_SRC
+
+*** emege xorg-server
+   :PROPERTIES:
+   :CUSTOM_ID: emege-xorg-server
+   :END:
+
+USE="udev -hal" で emerge
+したけど、キーボードとマウスが認識していない。予想はついていたので、sshd
+をあげて別端末から pkill した。
+
+[[http://body0r.wordpress.com/2010/04/16/xorg-udev-toggle/][ここを参考]]する。
+
+*** emerge udev
+   :PROPERTIES:
+   :CUSTOM_ID: emerge-udev
+   :END:
+
+MASKを外して、udev をアップデート。
+
+#+BEGIN_SRC sh
+  echo 'sys-fs/udev' >> /etc/portage/package.unmask
+  echo 'sys-fs/udev * ~* **' >> /etc/portage/package.keywords/sys-fs
+  emerge -u udev
+#+END_SRC
+
+*** udevルールの追加
+   :PROPERTIES:
+   :CUSTOM_ID: udevルールの追加
+   :END:
+
+j /usr/share/X11/xorg.conf.d が system config
+なので、/etc/X11/xorg.conf.d を掘って キーボードとマウスの設定を追加。
+
+おけー。
+
+#+BEGIN_SRC sh
+  # cat /etc/X11/xorg.conf.d/10-keyboard.conf
+  Section "InputClass"
+          Identifier "Keyboard"
+          Driver "evdev"
+          MatchIsKeyboard "on"
+          Option "xkbmodel" "jp106"
+          Option "xkblayout" "jp"
+  EndSection
+
+  # cat /etc/X11/xorg.conf.d/20-synaptics.conf
+  Section "InputClass"
+      Identifier "Touchpad"
+      Driver "synaptics"
+      MatchIsTouchpad "on"
+      Option "SHMConfig" "true"
+      Option "MinSpeed" "0.20"
+      Option "MaxSpeed" "0.60"
+      Option "AccelFactor" "0.020"
+      Option "HorizEdgeScroll" "true"
+      Option "HorizScrollDelta" "100"
+      Option "VertEdgeScroll" "true"
+      Option "VertScrollDelta" "100"
+      Option "TapButton1" "1"
+  EndSection
+#+END_SRC
+** DONE Guruplug Arrived
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-e6dc-e8c7
+:EXPORT_DATE: 2010-07-12 23:31:13
+:EXPORT_HUGO_TAGS: guruplug
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと
+Guruplug Std. が届いた。
+
+もしかしたら、Plus 注文と間違えられてかも。
+一昨日GlobalScale社に「まだ発送しない? 」のメールを送った際に、
+「俺が頼んだのは Plus じゃないよ」と付け加えたら翌日に
+「明日送るから」っていうメールが入っていたんだ。
+
+熱くなるのは Plus 同様かも。どこまで熱くなるかは、次回。
+(週末かな。でも、なんかイベントあったような気がする...)
+
+*** おきまりの first impression ということで、お写真を
+   :PROPERTIES:
+   :CUSTOM_ID: おきまりの-first-impression-ということでお写真を
+   :END:
+
+前のブログサイトにアップロードした画像なのでないw
+
+*** JTAG ボード [fn:1] を繋ぎ、FTDI USB シリアルデバイス(例では
+ttyUSB0)を確認したら
+   :PROPERTIES:
+   :CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら
+   :END:
+
+#+BEGIN_SRC sh
+  usb 2-2: FTDI USB Serial Device converter now attached to <font color="red">ttyUSB0
+#+END_SRC
+
+=screen /dev/ttyUSB0 115200= でターミナルをあげておく。
+
+- U-Bootの確認
+
+#+BEGIN_SRC sh
+  U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17)
+  Marvell-Plug2
+
+  SoC:   Kirkwood 88F6281_A0
+  DRAM:  512 MB
+  NAND:  512 MiB
+  In:    serial
+  Out:   serial
+  Err:   serial
+  Net:   egiga0
+  88E1121 Initialized on egiga0
+  Hit any key to stop autoboot:  3  0
+  Marvell>> help
+
+  ?       - alias for 'help'
+  base    - print or set address offset
+  bdinfo  - print Board Info structure
+  boot    - boot default, i.e., run 'bootcmd'
+  bootd   - boot default, i.e., run 'bootcmd'
+  bootm   - boot application image from memory
+  bootp   - boot image via network using BOOTP/TFTP protocol
+  cmp     - memory compare
+  coninfo - print console devices and information
+  cp      - memory copy
+  crc32   - checksum calculation
+  dhcp    - boot image via network using DHCP/TFTP protocol
+  echo    - echo args to console
+  editenv - edit environment variable
+  fatinfo - print information about filesystem
+  fatload - load binary file from a dos filesystem
+  fatls   - list files in a directory (default /)
+  go      - start application at address 'addr'
+  help    - print command description/usage
+  iminfo  - print header information for application image
+  imxtract- extract a part of a multi-image
+  itest   - return true/false on integer compare
+  loadb   - load binary file over serial line (kermit mode)
+  loads   - load S-Record file over serial line
+  loady   - load binary file over serial line (ymodem mode)
+  loop    - infinite loop on address range
+  md      - memory display
+  mm      - memory modify (auto-incrementing address)
+  mtest   - simple RAM read/write test
+  mw      - memory write (fill)
+  nand    - NAND sub-system
+  nboot   - boot from NAND device
+  nfs     - boot image via network using NFS protocol
+  nm      - memory modify (constant address)
+  ping    - send ICMP ECHO_REQUEST to network host
+  printenv- print environment variables
+  rarpboot- boot image via network using RARP/TFTP protocol
+  reset   - Perform RESET of the CPU
+  run     - run commands in an environment variable
+  saveenv - save environment variables to persistent storage
+  setenv  - set environment variables
+  sleep   - delay execution for some time
+  source  - run script from memory
+  tftpboot- boot image via network using TFTP protocol
+  usb     - USB sub-system
+  usbboot - boot from USB device
+  version - print monitor version
+  Marvell>> version
+
+
+  U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17)
+  Marvell-Plug2
+  Marvell>> printenv
+
+  bootcmd=${x_bootcmd_ethernet}; ${x_bootcmd_usb}; ${x_bootcmd_kernel}; setenv bootargs ${x_bootargs} ${x_bootargs_root}; bootm 0x6400000;
+  bootdelay=3
+  baudrate=115200
+  x_bootcmd_ethernet=ping 192.168.2.1
+  x_bootcmd_usb=usb start
+  x_bootcmd_kernel=nand read.e 0x6400000 0x100000 0x400000
+  x_bootargs=console=ttyS0,115200
+  x_bootargs_root=ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs
+  ethact=egiga0
+  ethaddr=00:50:43:01:9C:DB
+  stdin=serial
+  stdout=serial
+  stderr=serial
+
+  Environment size: 455/131068 bytes
+#+END_SRC
+
+- bootしてみましょ
+
+いい感じの速度感。悪くないな。
+
+#+BEGIN_SRC sh
+  U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17)
+  Marvell-Plug2
+
+  SoC:   Kirkwood 88F6281_A0
+  DRAM:  512 MB
+  NAND:  512 MiB
+  In:    serial
+  Out:   serial
+  Err:   serial
+  Net:   egiga0
+  88E1121 Initialized on egiga0
+  Hit any key to stop autoboot:  3  2  1  0
+  No link on egiga0
+  ping failed; host 192.168.2.1 is not alive
+  (Re)start USB...
+  USB:   Register 10011 NbrPorts 1
+  USB EHCI 1.00
+  scanning bus for devices... 2 USB Device(s) found
+         scanning bus for storage devices... 0 Storage Device(s) found
+
+  NAND read: device 0 offset 0x100000, size 0x400000
+   4194304 bytes read: OK
+  ## Booting kernel from Legacy Image at 06400000 ...
+     Image Name:   Linux-2.6.32-00007-g56678ec
+     Image Type:   ARM Linux Kernel Image (uncompressed)
+     Data Size:    2789748 Bytes =  2.7 MB
+     Load Address: 00008000
+     Entry Point:  00008000
+     Verifying Checksum ... OK
+     Loading Kernel Image ... OK
+  OK
+
+  Starting kernel ...
+
+  Uncompressing Linux.................................................................................................................................................................................... done, booting the kernel.
+  Linux version 2.6.32-00007-g56678ec (root@msi-linux-build.marvell.com) (gcc version 4.1.2 20070925 (Red Hat 4.1.2-33.fa1)) #1 PREEMPT Thu Dec 24 03:15:48 PST 2009
+  CPU: Feroceon 88FR131 [56251311] revision 1 (ARMv5TE), cr=00053977
+  CPU: VIVT data cache, VIVT instruction cache
+  Machine: Marvell Plug2 Reference Board
+  Memory policy: ECC disabled, Data cache writeback
+  Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 130048
+  Kernel command line: console=ttyS0,115200 ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs
+  PID hash table entries: 2048 (order: 1, 8192 bytes)
+  Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+  Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+  Memory: 256MB 256MB = 512MB total
+  Memory: 513024KB available (5144K code, 1034K data, 148K init, 0K highmem)
+  SLUB: Genslabs=11, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+  Hierarchical RCU implementation.
+  NR_IRQS:114
+  Console: colour dummy device 80x30
+  Calibrating delay loop... 1192.75 BogoMIPS (lpj=5963776)
+  Mount-cache hash table entries: 512
+  CPU: Testing write buffer coherency: ok
+  NET: Registered protocol family 16
+  Kirkwood: MV88F6281-A1, TCLK=200000000.
+  Feroceon L2: Cache support initialised.
+  bio: create slab <bio-0> at 0
+  vgaarb: loaded
+  SCSI subsystem initialized
+  usbcore: registered new interface driver usbfs
+  usbcore: registered new interface driver hub
+  usbcore: registered new device driver usb
+  cfg80211: Using static regulatory domain info
+  cfg80211: Regulatory domain: US
+      (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp)
+      (2402000 KHz - 2472000 KHz @ 40000 KHz), (600 mBi, 2700 mBm)
+      (5170000 KHz - 5190000 KHz @ 40000 KHz), (600 mBi, 2300 mBm)
+      (5190000 KHz - 5210000 KHz @ 40000 KHz), (600 mBi, 2300 mBm)
+      (5210000 KHz - 5230000 KHz @ 40000 KHz), (600 mBi, 2300 mBm)
+      (5230000 KHz - 5330000 KHz @ 40000 KHz), (600 mBi, 2300 mBm)
+      (5735000 KHz - 5835000 KHz @ 40000 KHz), (600 mBi, 3000 mBm)
+  cfg80211: Calling CRDA for country: US
+  Switching to clocksource orion_clocksource
+  NET: Registered protocol family 2
+  IP route cache hash table entries: 4096 (order: 2, 16384 bytes)
+  TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+  TCP bind hash table entries: 16384 (order: 4, 65536 bytes)
+  TCP: Hash tables configured (established 16384 bind 16384)
+  TCP reno registered
+  NET: Registered protocol family 1
+  RPC: Registered udp transport module.
+  RPC: Registered tcp transport module.
+  RPC: Registered tcp NFSv4.1 backchannel transport module.
+  JFFS2 version 2.2. (NAND) 息 2001-2006 Red Hat, Inc.
+  JFS: nTxBlock = 4010, nTxLock = 32080
+  msgmni has been set to 1002
+  alg: No test for stdrng (krng)
+  io scheduler noop registered
+  io scheduler anticipatory registered
+  io scheduler deadline registered
+  io scheduler cfq registered (default)
+  Serial: 8250/16550 driver, 2 ports, IRQ sharing disabled
+  serial8250.0: ttyS0 at MMIO 0xf1012000 (irq = 33) is a 16550A
+  console [ttyS0] enabled
+  brd: module loaded
+  loop: module loaded
+  NAND device: Manufacturer ID: 0xec, Chip ID: 0xdc (Samsung NAND 512MiB 3,3V 8-bit)
+  Scanning device for bad blocks
+  Creating 3 MTD partitions on "orion_nand":
+  0x000000000000-0x000000100000 : "u-boot"
+  0x000000100000-0x000000500000 : "uImage"
+  0x000000500000-0x000020000000 : "root"
+  UBI: attaching mtd2 to ubi0
+  UBI: physical eraseblock size:   131072 bytes (128 KiB)
+  UBI: logical eraseblock size:    129024 bytes
+  UBI: smallest flash I/O unit:    2048
+  UBI: sub-page size:              512
+  UBI: VID header offset:          512 (aligned 512)
+  UBI: data offset:                2048
+  UBI: attached mtd2 to ubi0
+  UBI: MTD device name:            "root"
+  UBI: MTD device size:            507 MiB
+  UBI: number of good PEBs:        4056
+  UBI: number of bad PEBs:         0
+  UBI: max. allowed volumes:       128
+  UBI: wear-leveling threshold:    4096
+  UBI: number of internal volumes: 1
+  UBI: number of user volumes:     1
+  UBI: available PEBs:             0
+  UBI: total number of reserved PEBs: 4056
+  UBI: number of PEBs reserved for bad PEB handling: 40
+  UBI: max/mean erase counter: 2/0
+  UBI: image sequence number: 0
+  UBI: background thread "ubi_bgt0d" started, PID 447
+  MV-643xx 10/100/1000 ethernet driver version 1.4
+  mv643xx_eth smi: probed
+  net eth0: port 0 with MAC address 00:50:43:01:9c:db
+  ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+  orion-ehci orion-ehci.0: Marvell Orion EHCI
+  orion-ehci orion-ehci.0: new USB bus registered, assigned bus number 1
+  orion-ehci orion-ehci.0: irq 19, io mem 0xf1050000
+  orion-ehci orion-ehci.0: USB 2.0 started, EHCI 1.00
+  usb usb1: configuration #1 chosen from 1 choice
+  hub 1-0:1.0: USB hub found
+  hub 1-0:1.0: 1 port detected
+  Initializing USB Mass Storage driver...
+  usbcore: registered new interface driver usb-storage
+  USB Mass Storage support registered.
+  usbcore: registered new interface driver ums-datafab
+  usbcore: registered new interface driver ums-freecom
+  usbcore: registered new interface driver ums-jumpshot
+  usbcore: registered new interface driver ums-sddr09
+  usbcore: registered new interface driver ums-sddr55
+  mice: PS/2 mouse device common for all mice
+  rtc-mv rtc-mv: rtc core: registered rtc-mv as rtc0
+  i2c /dev entries driver
+  cpuidle: using governor ladder
+  cpuidle: using governor menu
+  sdhci: Secure Digital Host Controller Interface driver
+  sdhci: Copyright(c) Pierre Ossman
+  mmc0: mvsdio driver initialized, lacking card detect (fall back to polling)
+  Registered led device: plug2:red:health
+  Registered led device: plug2:green:health
+  Registered led device: plug2:red:wmode
+  Registered led device: plug2:green:wmode
+  mv_xor_shared mv_xor_shared.0: Marvell shared XOR driver
+  mv_xor_shared mv_xor_shared.1: Marvell shared XOR driver
+  mmc0: new high speed SDIO card at address 0001
+  mv_xor mv_xor.0: Marvell XOR: ( xor cpy )
+  mv_xor mv_xor.1: Marvell XOR: ( xor fill cpy )
+  mv_xor mv_xor.2: Marvell XOR: ( xor cpy )
+  mv_xor mv_xor.3: Marvell XOR: ( xor fill cpy )
+  usbcore: registered new interface driver usbhid
+  usbhid: v2.6:USB HID core driver
+  oprofile: using timer interrupt.
+  TCP cubic registered
+  NET: Registered protocol family 17
+  lib80211: common routines for IEEE802.11 drivers
+  rtc-mv rtc-mv: setting system clock to 2078-08-07 07:32:50 UTC (3427083170)
+  usb 1-1: new high speed USB device using orion-ehci and address 2
+  UBIFS: mounted UBI device 0, volume 0, name "rootfs"
+  UBIFS: file system size:   516225024 bytes (504126 KiB, 492 MiB, 4001 LEBs)
+  UBIFS: journal size:       9033728 bytes (8822 KiB, 8 MiB, 71 LEBs)
+  UBIFS: media format:       w4/r0 (latest is w4/r0)
+  UBIFS: default compressor: zlib
+  UBIFS: reserved for root:  0 bytes (0 KiB)
+  VFS: Mounted root (ubifs filesystem) on device 0:13.
+  Freeing init memory: 148K
+  usb 1-1: configuration #1 chosen from 1 choice
+  hub 1-1:1.0: USB hub found
+  hub 1-1:1.0: 4 ports detected
+
+  INIT: version 2.86 booting
+
+  Starting the hotplug events dispatcher: udevd.
+  Synthesizing the initial hotplug events...done.
+  Waiting for /dev to be fully populated...Bluetooth: Core ver 2.15
+  NET: Registered protocol family 31
+  Bluetooth: HCI device and connection manager initialized
+  Bluetooth: HCI socket layer initialized
+  libertas_sdio: Libertas SDIO driver
+  libertas_sdio: Copyright Pierre Ossman
+  libertas_sdio mmc0:0001:1: firmware: requesting sd8688_helper.bin
+  libertas: can't load helper firmware
+  libertas: failed to load helper firmware
+  libertas_sdio: probe of mmc0:0001:1 failed with error -2
+  Bluetooth: vendor=0x2df, device=0x9105, class=255, fn=2
+  btmrvl_sdio mmc0:0001:2: firmware: requesting sd8688_helper.bin
+  btmrvl_sdio_download_helper: request_firmware(helper) failed, error code = -2
+  btmrvl_sdio_download_fw: Failed to download helper!
+  btmrvl_sdio_probe: Downloading firmware failed!
+  done.
+  Setting the system clock.
+  The Hardware Clock does not contain a valid time, so we cannot set the System Time from it.
+  Unable to set system clock.
+  Unable to set System Clock to: Thu Jul 2 01:04:39 UTC 1942 [33m(warning).[39;49m
+  Activating swap...done.
+  Setting the system clock.
+  The Hardware Clock does not contain a valid time, so we cannot set the System Time from it.
+  Unable to set system clock.
+  Unable to set System Clock to: Thu Jul 2 01:04:40 UTC 1942 [33m(warning).[39;49m
+  Cleaning up ifupdown....
+  Loading kernel modules...done.
+  Checking file systems...fsck 1.41.3 (12-Oct-2008)
+  done.
+  Setting kernel variables (/etc/sysctl.conf)...done.
+  Mounting local filesystems...done.
+  Activating swapfile swap...done.
+  Setting up networking....
+  Configuring network interfaces...done.
+  Starting portmap daemon....
+  Setting console screen modes and fonts.
+  cannot (un)set powersave mode
+  [9;30][14;30]Setting up ALSA...done (none loaded).
+
+  INIT: Entering runlevel: 2
+
+  Starting enhanced syslogd: rsyslogd.
+  Starting system message bus: dbus.
+  Starting OpenBSD Secure Shell server: sshdNET: Registered protocol family 10
+  .
+  Starting MySQL database server: mysqld.
+  Checking for corrupt, not cleanly closed and upgrade needing tables..
+  Starting MTA: exim4.
+  ALERT: exim paniclog /var/log/exim4/paniclog has non-zero size, mail system possibly broken [31mfailed![39;49m
+  Starting Network Interface Plugging Daemon:ADDRCONF(NETDEV_UP): eth0: link is not ready
+   eth0.
+  Starting web server: lighttpd.
+  Starting internet superserver: inetd.
+  Starting Samba daemons: nmbd smbd.
+  Starting file alteration monitor: FAM.
+  Starting Hardware abstraction layer: hald.
+  Starting periodic command scheduler: crond.
+  uap_probe: vendor=0x02DF device=0x9104 class=0 function=1
+  uap_sdio mmc0:0001:1: firmware: requesting mrvl/helper_sd.bin
+  uap_sdio mmc0:0001:1: firmware: requesting mrvl/sd8688_ap.bin
+  UAP FW is active
+  ADDRCONF(NETDEV_UP): uap0: link is not ready
+  SSID setting successful
+  BSS started!
+  ip_tables: (C) 2000-2006 Netfilter Core Team
+  nf_conntrack version 0.5.0 (8022 buckets, 32088 max)
+  CONFIG_NF_CT_ACCT is deprecated and will be removed soon. Please use
+  nf_conntrack.acct=1 kernel parameter, acct=1 nf_conntrack module option or
+  sysctl net.netfilter.nf_conntrack_acct=1 to enable it.
+  Starting very small DHCP server: udhcpd (v0.9.9-pre) started
+  udhcpd.
+  Starting DNS forwarder and DHCP server: dnsmasq.
+  Starting bluetooth: bluetoothdBluetooth: L2CAP ver 2.14
+  Bluetooth: L2CAP socket layer initialized
+  Bluetooth: RFCOMM TTY layer initialized
+  Bluetooth: RFCOMM socket layer initialized
+  Bluetooth: RFCOMM ver 1.11
+  .
+  Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+  Bluetooth: vendor=0x2df, device=0x9105, class=255, fn=2
+  Bridge firewalling registered
+  Bluetooth: SCO (Voice Link) ver 0.6
+  Bluetooth: SCO socket layer initialized
+  Agent registered
+
+  Debian GNU/Linux 5.0 sheevaplug-debian ttyS0
+
+  sheevaplug-debian login: root
+  Password:
+  Last login: Thu Jul  2 01:04:00 UTC 1942 on ttyS0
+  Linux sheevaplug-debian 2.6.32-00007-g56678ec #1 PREEMPT Thu Dec 24 03:15:48 PST 2009 armv5tel
+
+  The programs included with the Debian GNU/Linux system are free software;
+  the exact distribution terms for each program are described in the
+  individual files in /usr/share/doc/*/copyright.
+
+  Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+  permitted by applicable law.
+#+END_SRC
+
+[fn:1] 先行予約は JTAGボードが無料でついてくるんだけど、PC-BOX
+       JTAGボードが必需なんだな。後発で買った人は工作するか、諦めるか。もっとも必要のない人だっているから、どうだとは言い切れないが。
+       と繋げるためには
+** DONE Guruplug Subquent
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-4ca5-ca76
+:EXPORT_DATE: 2010-07-16 23:32:33
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** guruplug が届いてから遊んだこと
+   :PROPERTIES:
+   :CUSTOM_ID: guruplug-が届いてから遊んだこと
+   :END:
+
+- U-Bootのアップデート
+- Kernelのアップデート
+- Debian RFS から Gentoo RFS に変更
+
+以上は、確認ずみ。まぁ、いつもすることじゃないので放っておこう。
+
+wiki にあることで十分。Gentoo RFS については、感単なのは stage3
+を持ってくることかな。 インストについては x86 とかと同じ。
+
+参考にしたポイント
+
+- [[http://mark.ossdl.de/2009/09/gentoo-on-the-sheevaplug/]]
+
+*** 進行形
+   :PROPERTIES:
+   :CUSTOM_ID: 進行形
+   :END:
+
+- Pyblosxom + Paste + Nginx
+
+python アプリ関係ソフトの、KEYWORD が "arm" または "~arm"
+がついていないでやんの。
+
+KEYWORD を無効にしてから、Nginx
+をインストールして、動作するまでは確認した。 Nginx
+の評判通り(軽くて/早い)ではない動作なので調整中。
+
+Nginx + paster + Pyblosxom での動作は確認できたが、 唯一 wbgpager
+がダメだった。
+
+トライするのが面倒だったので、 Apache + mod_wsgi + Pyblosxom
+で現在は動作している。[2010-07-19]
+
+*** 将来
+   :PROPERTIES:
+   :CUSTOM_ID: 将来
+   :END:
+
+- HoneyPod の実装
+
+GuruPlug でのアイデアソリューションとして、 やりたいことは HoneyPod
+の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、
+Nginx が上手く動作していないので期待は遠い。
+
+あと iptables が kernel が変わってきちんと動作するかだな。
+
+iptables は問題なく動作した。honeyd も動作した。 あとは、ルータで honeyd
+の virtual-honeypots に食わせるだけだ。
+
+でも、mwcollect が SIGSEGV で落ちている。[2010-07-19]
+
+*** 最後に前回の宿題
+   :PROPERTIES:
+   :CUSTOM_ID: 最後に前回の宿題
+   :END:
+
+耐久レースは(届いてから(今週月曜日)カーネル変更とかして)、実質約4日間の体感になるが、
+全く問題なし。熱暴走はまだないが、USBスティックが熱い感じ。
+
+マシンの熱さは、某掲示板で騒がれるほど酷く熱くはない。
+問題になっているのは GuruPlug PLUS (odd: ethx2 + eSTA) だけどね。
+
+*** [現在の GuruPlug Std.]
+   :PROPERTIES:
+   :CUSTOM_ID: 現在の-guruplug-std.
+   :END:
+
+- U-Boot
+
+#+BEGIN_SRC sh
+  U-Boot 2010.03-01266-g42f7128 (Jul 14 2010 - 10:09:06)
+  Marvell-GuruPlug
+
+  SoC:   Kirkwood 88F6281_A0
+  DRAM:  512 MB
+  NAND:  512 MiB
+  In:    serial
+  Out:   serial
+  Err:   serial
+  Net:   egiga0, egiga1
+  88E1121 Initialized on egiga0
+  88E1121 Initialized on egiga1
+  Hit any key to stop autoboot:  3  2  1  0
+
+  Marvell>> help
+
+  ?       - alias for 'help'
+  base    - print or set address offset
+  bdinfo  - print Board Info structure
+  boot    - boot default, i.e., run 'bootcmd'
+  bootd   - boot default, i.e., run 'bootcmd'
+  bootm   - boot application image from memory
+  bootp   - boot image via network using BOOTP/TFTP protocol
+  cmp     - memory compare
+  coninfo - print console devices and information
+  cp      - memory copy
+  crc32   - checksum calculation
+  dhcp    - boot image via network using DHCP/TFTP protocol
+  echo    - echo args to console
+  editenv - edit environment variable
+  fatinfo - print information about filesystem
+  fatload - load binary file from a dos filesystem
+  fatls   - list files in a directory (default /)
+  go      - start application at address 'addr'
+  help    - print command description/usage
+  iminfo  - print header information for application image
+  imxtract- extract a part of a multi-image
+  itest   - return true/false on integer compare
+  loadb   - load binary file over serial line (kermit mode)
+  loads   - load S-Record file over serial line
+  loady   - load binary file over serial line (ymodem mode)
+  loop    - infinite loop on address range
+  md      - memory display
+  mii     - MII utility commands
+  mm      - memory modify (auto-incrementing address)
+  mtest   - simple RAM read/write test
+  mw      - memory write (fill)
+  nand    - NAND sub-system
+  nboot   - boot from NAND device
+  nfs     - boot image via network using NFS protocol
+  nm      - memory modify (constant address)
+  ping    - send ICMP ECHO_REQUEST to network host
+  printenv- print environment variables
+  rarpboot- boot image via network using RARP/TFTP protocol
+  reset   - Perform RESET of the CPU
+  run     - run commands in an environment variable
+  saveenv - save environment variables to persistent storage
+  setenv  - set environment variables
+  sleep   - delay execution for some time
+  source  - run script from memory
+  tftpboot- boot image via network using TFTP protocol
+  usb     - USB sub-system
+  usbboot - boot from USB device
+  version - print monitor version
+
+  Marvell>> printenv
+
+  bootcmd=${x_bootcmd_usb}; ${x_bootcmd_kernel}; setenv bootargs ${x_bootargs} ${x_bootargs_root}; bootm 0x6400000;
+  bootdelay=3
+  baudrate=115200
+  x_bootcmd_usb=usb start
+  x_bootcmd_kernel=nand read.e 0x6400000 0x100000 0x400000
+  x_bootargs=console=ttyS0,115200
+  ethaddr=02:50:43:0a:b6:e1
+  ipaddr=192.168.1.2
+  serverip=192.168.1.123
+  mainlineLinux=yes
+  ethact=egiga0
+  x_bootargs_root_factory=ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs
+  x_bootargs_root=rootwait root=/dev/sda2
+  stdin=serial
+  stdout=serial
+  stderr=serial
+  eth1addr=02:50:43:7d:f2:4a
+
+  Marvell>> base
+
+  Base Address: 0x00000000
+  Marvell>> bdinfo
+
+  arch_number = 0x00000A63
+  env_t       = 0x00000000
+  boot_params = 0x00000100
+  DRAM bank   = 0x00000000
+  -> start    = 0x00000000
+  -> size     = 0x10000000
+  DRAM bank   = 0x00000001
+  -> start    = 0x10000000
+  -> size     = 0x10000000
+  DRAM bank   = 0x00000002
+  -> start    = 0x00000000
+  -> size     = 0x00000000
+  DRAM bank   = 0x00000003
+  -> start    = 0x00000000
+  -> size     = 0x00000000
+  ethaddr     = 02:50:43:0a:b6:e1
+  ip_addr     = 192.168.1.2
+  baudrate    = 115200 bps
+
+  Marvell>> usb start
+
+  (Re)start USB...
+  USB:   Register 10011 NbrPorts 1
+  USB EHCI 1.00
+  scanning bus for devices... 3 USB Device(s) found
+         scanning bus for storage devices... Device NOT ready
+     Request Sense returned 00 00 00
+  1 Storage Device(s) found
+  Marvell>> usb tree
+
+
+  Device Tree:
+    1  Hub (480 Mb/s, 0mA)
+    |  u-boot EHCI Host Controller
+    |
+    |+-2  Hub (480 Mb/s, 100mA)
+      |   USB2.0 Hub
+      |
+      |+-3  Mass Storage (480 Mb/s, 200mA)
+           TDKMedia Transit 079C0903D5C8B88A
+#+END_SRC
+
+- Kernel Boot
+
+#+BEGIN_SRC sh
+  U-Boot 2010.03-01266-g42f7128 (Jul 14 2010 - 10:09:06)
+  Marvell-GuruPlug
+
+  SoC:   Kirkwood 88F6281_A0
+  DRAM:  512 MB
+  NAND:  512 MiB
+  In:    serial
+  Out:   serial
+  Err:   serial
+  Net:   egiga0, egiga1
+  88E1121 Initialized on egiga0
+  88E1121 Initialized on egiga1
+  Hit any key to stop autoboot:  3  2  1  0
+  (Re)start USB...
+  USB:   Register 10011 NbrPorts 1
+  USB EHCI 1.00
+  scanning bus for devices... 3 USB Device(s) found
+         scanning bus for storage devices... Device NOT ready
+     Request Sense returned 00 00 00
+  1 Storage Device(s) found
+
+  NAND read: device 0 offset 0x100000, size 0x400000
+   4194304 bytes read: OK
+  ## Booting kernel from Legacy Image at 06400000 ...
+     Image Name:   Linux-2.6.33.2-dirty
+     Image Type:   ARM Linux Kernel Image (uncompressed)
+     Data Size:    2669044 Bytes =  2.5 MB
+     Load Address: 00008000
+     Entry Point:  00008000
+     Verifying Checksum ... OK
+     Loading Kernel Image ... OK
+  OK
+
+  Starting kernel ...
+
+  Uncompressing Linux... done, booting the kernel.
+  Linux version 2.6.33.2-dirty (tjy@mybox) (gcc version 4.3.3 (Gentoo 4.3.3-r2 p1.2, pie-10.1.5) ) #1 PREEMPT Wed Jul 14 10:28:55 JST 2010
+  CPU: Feroceon 88FR131 [56251311] revision 1 (ARMv5TE), cr=00053977
+  CPU: VIVT data cache, VIVT instruction cache
+  Machine: Marvell GuruPlug Reference Board
+  Memory policy: ECC disabled, Data cache writeback
+  Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 130048
+  Kernel command line: console=ttyS0,115200 rootwait root=/dev/sda2
+  PID hash table entries: 2048 (order: 1, 8192 bytes)
+  Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+  Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+  Memory: 256MB 256MB = 512MB total
+  Memory: 513664KB available (4760K code, 862K data, 140K init, 0K highmem)
+  SLUB: Genslabs=11, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+  Hierarchical RCU implementation.
+  NR_IRQS:114
+  Console: colour dummy device 80x30
+  Calibrating delay loop... 1192.75 BogoMIPS (lpj=5963776)
+  Mount-cache hash table entries: 512
+  CPU: Testing write buffer coherency: ok
+  NET: Registered protocol family 16
+  Kirkwood: MV88F6281-A1, TCLK=200000000.
+  Feroceon L2: Cache support initialised.
+  bio: create slab <bio-0> at 0
+  vgaarb: loaded
+  SCSI subsystem initialized
+  usbcore: registered new interface driver usbfs
+  usbcore: registered new interface driver hub
+  usbcore: registered new device driver usb
+  cfg80211: Using static regulatory domain info
+  cfg80211: Regulatory domain: 00
+      (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp)
+      (2402000 KHz - 2472000 KHz @ 40000 KHz), (600 mBi, 2000 mBm)
+      (2457000 KHz - 2482000 KHz @ 20000 KHz), (600 mBi, 2000 mBm)
+      (2474000 KHz - 2494000 KHz @ 20000 KHz), (600 mBi, 2000 mBm)
+      (5170000 KHz - 5250000 KHz @ 40000 KHz), (600 mBi, 2000 mBm)
+      (5735000 KHz - 5835000 KHz @ 40000 KHz), (600 mBi, 2000 mBm)
+  cfg80211: Calling CRDA to update world regulatory domain
+  Switching to clocksource orion_clocksource
+  NET: Registered protocol family 2
+  IP route cache hash table entries: 4096 (order: 2, 16384 bytes)
+  TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+  TCP bind hash table entries: 16384 (order: 4, 65536 bytes)
+  TCP: Hash tables configured (established 16384 bind 16384)
+  TCP reno registered
+  UDP hash table entries: 256 (order: 0, 4096 bytes)
+  UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+  NET: Registered protocol family 1
+  RPC: Registered udp transport module.
+  RPC: Registered tcp transport module.
+  RPC: Registered tcp NFSv4.1 backchannel transport module.
+  JFFS2 version 2.2. (NAND) 息 2001-2006 Red Hat, Inc.
+  JFS: nTxBlock = 4014, nTxLock = 32116
+  msgmni has been set to 1003
+  alg: No test for stdrng (krng)
+  io scheduler noop registered
+  io scheduler deadline registered
+  io scheduler cfq registered (default)
+  Serial: 8250/16550 driver, 2 ports, IRQ sharing disabled
+  serial8250.0: ttyS0 at MMIO 0xf1012000 (irq = 33) is a 16550A
+  console [ttyS0] enabled
+  brd: module loaded
+  loop: module loaded
+  NAND device: Manufacturer ID: 0xec, Chip ID: 0xdc (Samsung NAND 512MiB 3,3V 8-bit)
+  Scanning device for bad blocks
+  Creating 3 MTD partitions on "orion_nand":
+  0x000000000000-0x000000100000 : "u-boot"
+  0x000000100000-0x000000500000 : "uImage"
+  0x000000500000-0x000020000000 : "root"
+  MV-643xx 10/100/1000 ethernet driver version 1.4
+  mv643xx_eth smi: probed
+  net eth0: port 0 with MAC address 02:50:43:0a:b6:e1
+  net eth1: port 0 with MAC address 02:50:43:2d:3b:5d
+  ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+  orion-ehci orion-ehci.0: Marvell Orion EHCI
+  orion-ehci orion-ehci.0: new USB bus registered, assigned bus number 1
+  orion-ehci orion-ehci.0: irq 19, io mem 0xf1050000
+  orion-ehci orion-ehci.0: USB 2.0 started, EHCI 1.00
+  hub 1-0:1.0: USB hub found
+  hub 1-0:1.0: 1 port detected
+  Initializing USB Mass Storage driver...
+  usbcore: registered new interface driver usb-storage
+  USB Mass Storage support registered.
+  usbcore: registered new interface driver ums-datafab
+  usbcore: registered new interface driver ums-freecom
+  usbcore: registered new interface driver ums-jumpshot
+  usbcore: registered new interface driver ums-sddr09
+  usbcore: registered new interface driver ums-sddr55
+  mice: PS/2 mouse device common for all mice
+  rtc-mv rtc-mv: rtc core: registered rtc-mv as rtc0
+  i2c /dev entries driver
+  cpuidle: using governor ladder
+  cpuidle: using governor menu
+  sdhci: Secure Digital Host Controller Interface driver
+  sdhci: Copyright(c) Pierre Ossman
+  mmc0: mvsdio driver initialized, lacking card detect (fall back to polling)
+  Registered led device: guruplug:red:health
+  Registered led device: guruplug:green:health
+  Registered led device: guruplug:red:wmode
+  Registered led device: guruplug:green:wmode
+  mv_xor_shared mv_xor_shared.0: Marvell shared XOR driver
+  mv_xor_shared mv_xor_shared.1: Marvell shared XOR driver
+  mv_xor mv_xor.0: Marvell XOR: ( xor cpy )
+  mmc0: new high speed SDIO card at address 0001
+  mv_xor mv_xor.1: Marvell XOR: ( xor fill cpy )
+  mv_xor mv_xor.2: Marvell XOR: ( xor cpy )
+  mv_xor mv_xor.3: Marvell XOR: ( xor fill cpy )
+  usbcore: registered new interface driver hiddev
+  usbcore: registered new interface driver usbhid
+  usbhid: USB HID core driver
+  oprofile: using timer interrupt.
+  TCP cubic registered
+  NET: Registered protocol family 17
+  lib80211: common routines for IEEE802.11 drivers
+  rtc-mv rtc-mv: setting system clock to 2079-02-19 11:43:05 UTC (3444032585)
+  Waiting for root device /dev/sda2...
+  usb 1-1: new high speed USB device using orion-ehci and address 2
+  hub 1-1:1.0: USB hub found
+  hub 1-1:1.0: 4 ports detected
+  usb 1-1.2: new high speed USB device using orion-ehci and address 3
+  scsi0 : usb-storage 1-1.2:1.0
+  scsi 0:0:0:0: Direct-Access     TDKMedia Transit          PMAP PQ: 0 ANSI: 0 CCS
+  sd 0:0:0:0: Attached scsi generic sg0 type 0
+  sd 0:0:0:0: [sda] 15638528 512-byte logical blocks: (8.00 GB/7.45 GiB)
+  sd 0:0:0:0: [sda] Write Protect is off
+  sd 0:0:0:0: [sda] Assuming drive cache: write through
+  sd 0:0:0:0: [sda] Assuming drive cache: write through
+   sda: sda1 sda2 sda3 sda4
+  sd 0:0:0:0: [sda] Assuming drive cache: write through
+  sd 0:0:0:0: [sda] Attached SCSI removable disk
+  EXT3-fs (sda2): warning: checktime reached, running e2fsck is recommended
+  kjournald starting.  Commit interval 5 seconds
+  EXT3-fs (sda2): using internal journal
+  EXT3-fs (sda2): mounted filesystem with writeback data mode
+  VFS: Mounted root (ext3 filesystem) on device 8:2.
+  Freeing init memory: 140K
+
+  INIT: version 2.87 booting
+  .... (SNIP) ...
+#+END_SRC
+
+- Running System
+
+#+BEGIN_EXAMPLE
+  HumptyDumpty ~ # uname -a
+  Linux HumptyDumpty 2.6.33.2-dirty #1 PREEMPT Wed Jul 14 10:28:55 JST 2010 armv5tel Feroceon 88FR131 rev 1 (v5l) Marvell GuruPlug Reference Board GNU/Linux
+
+  HumptyDumpty ~ # cat /proc/mtd
+  dev:    size   erasesize  name
+  mtd0: 00100000 00020000 "u-boot"
+  mtd1: 00400000 00020000 "uImage"
+  mtd2: 1fb00000 00020000 "root"
+
+  HumptyDumpty ~ # ifconfig -a
+  eth0      Link encap:Ethernet  HWaddr 02:50:43:0a:b6:e1
+            inet addr:192.168.1.2  Bcast:192.168.1.255  Mask:255.255.255.0
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:77 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:82 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:10062 (9.8 KiB)  TX bytes:6936 (6.7 KiB)
+            Interrupt:11
+
+  eth1      Link encap:Ethernet  HWaddr 02:50:43:2d:3b:5d
+            BROADCAST MULTICAST  MTU:1500  Metric:1
+            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+            Interrupt:15
+
+  lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            UP LOOPBACK RUNNING  MTU:16436  Metric:1
+            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:0
+            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+  HumptyDumpty ~ # netstat -nlp
+  Active Internet connections (only servers)
+  Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+  tcp        0      0 127.0.0.1:5000          0.0.0.0:*               LISTEN      1456/python2.6
+  tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      1364/nginx.conf
+  tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1411/sshd
+  udp        0      0 192.168.1.2:123         0.0.0.0:*                           1391/ntpd
+  udp        0      0 127.0.0.1:123           0.0.0.0:*                           1391/ntpd
+  udp        0      0 0.0.0.0:123             0.0.0.0:*                           1391/ntpd
+  Active UNIX domain sockets (only servers)
+  Proto RefCnt Flags       Type       State         I-Node   PID/Program name     Path
+  unix  2      [ ACC ]     STREAM     LISTENING     2109     1348/syslog-ng       /dev/log
+  unix  2      [ ACC ]     STREAM     LISTENING     2114     1348/syslog-ng       /var/run/syslog-ng.ctl
+
+  HumptyDumpty ~ # cat /proc/filesystems
+  nodev   sysfs
+  nodev   rootfs
+  nodev   bdev
+  nodev   proc
+  nodev   tmpfs
+  nodev   debugfs
+  nodev   sockfs
+  nodev   usbfs
+  nodev   pipefs
+  nodev   anon_inodefs
+  nodev   rpc_pipefs
+  nodev   inotifyfs
+  nodev   devpts
+      ext3
+      ext2
+      ext4
+      cramfs
+  nodev   ramfs
+      vfat
+      msdos
+  nodev   nfs
+  nodev   nfs4
+  nodev   jffs2
+      jfs
+  nodev   oprofilefs
+  nodev   ubifs
+
+  HumptyDumpty ~ # ps -ef
+  UID        PID  PPID  C STIME TTY          TIME CMD
+  root         1     0  0 08:51 ?        00:00:00 init [3]
+  root         2     0  0 08:51 ?        00:00:00 [kthreadd]
+  root         3     2  0 08:51 ?        00:00:00 [ksoftirqd/0]
+  root         4     2  0 08:51 ?        00:00:00 [watchdog/0]
+  root         5     2  0 08:51 ?        00:00:00 [events/0]
+  root         6     2  0 08:51 ?        00:00:00 [khelper]
+  root         9     2  0 08:51 ?        00:00:00 [async/mgr]
+  root       131     2  0 08:51 ?        00:00:00 [sync_supers]
+  root       133     2  0 08:51 ?        00:00:00 [bdi-default]
+  root       135     2  0 08:51 ?        00:00:00 [kblockd/0]
+  root       141     2  0 08:51 ?        00:00:00 [ata/0]
+  root       142     2  0 08:51 ?        00:00:00 [ata_aux]
+  root       146     2  0 08:51 ?        00:00:00 [ksuspend_usbd]
+  root       151     2  0 08:51 ?        00:00:00 [khubd]
+  root       154     2  0 08:51 ?        00:00:00 [kseriod]
+  root       157     2  0 08:51 ?        00:00:00 [kmmcd]
+  root       167     2  0 08:51 ?        00:00:00 [cfg80211]
+  root       178     2  0 08:51 ?        00:00:00 [rpciod/0]
+  root       186     2  0 08:51 ?        00:00:00 [khungtaskd]
+  root       187     2  0 08:51 ?        00:00:00 [kswapd0]
+  root       232     2  0 08:51 ?        00:00:00 [aio/0]
+  root       245     2  0 08:51 ?        00:00:00 [nfsiod]
+  root       253     2  0 08:51 ?        00:00:00 [jfsIO]
+  root       254     2  0 08:51 ?        00:00:00 [jfsCommit]
+  root       255     2  0 08:51 ?        00:00:00 [jfsSync]
+  root       256     2  0 08:51 ?        00:00:00 [crypto/0]
+  root       431     2  0 08:51 ?        00:00:00 [mtdblockd]
+  root       447     2  0 08:51 ?        00:00:00 [orion_spi]
+  root       537     2  0 08:51 ?        00:00:00 [usbhid_resumer]
+  root       552     2  0 08:51 ?        00:00:00 [scsi_eh_0]
+  root       553     2  0 08:51 ?        00:00:00 [usb-storage]
+  root       571     2  0 08:51 ?        00:00:00 [kjournald]
+  root       587     2  0 08:51 ?        00:00:00 [flush-8:0]
+  root       672     1  0 08:51 ?        00:00:00 /sbin/udevd --daemon
+  root       701     2  0 08:51 ?        00:00:00 [mv_crypto]
+  root       756     2  0 08:51 ?        00:00:00 [bluetooth]
+  root       763     2  0 08:51 ?        00:00:00 [scsi_eh_1]
+  root       884     2  0 08:51 ?        00:00:00 [kjournald]
+  root      1244     1  0 08:51 ?        00:00:00 dhcpcd -t 10 -m 2 eth0
+  root      1347     1  0 08:51 ?        00:00:00 supervising syslog-ng
+  root      1348  1347  0 08:51 ?        00:00:00 /usr/sbin/syslog-ng
+  root      1364     1  0 08:51 ?        00:00:00 nginx: master process /usr/sbin/
+  nginx     1366  1364  0 08:51 ?        00:00:00 nginx: worker process
+  root      1391     1  0 08:51 ?        00:00:00 /usr/sbin/ntpd -p /var/run/ntpd.
+  root      1411     1  0 08:51 ?        00:00:00 /usr/sbin/sshd
+  root      1441     1  0 08:51 ?        00:00:00 /usr/sbin/cron
+  tjy       1456     1  0 08:51 ?        00:00:00 /home/tjy/vp/bin/python2.6 /home
+  root      1458     1  0 08:51 tty1     00:00:00 /sbin/agetty 38400 tty1 linux
+  root      1459     1  0 08:51 tty2     00:00:00 /sbin/agetty 38400 tty2 linux
+  root      1460     1  0 08:51 tty3     00:00:00 /sbin/agetty 38400 tty3 linux
+  root      1461     1  0 08:51 tty4     00:00:00 /sbin/agetty 38400 tty4 linux
+  root      1462     1  0 08:51 tty5     00:00:00 /sbin/agetty 38400 tty5 linux
+  root      1463     1  0 08:51 tty6     00:00:00 /sbin/agetty 38400 tty6 linux
+  root      1464     1  0 08:51 ttyS0    00:00:00 /bin/login --
+  root      1470  1464  0 08:52 ttyS0    00:00:00 -bash
+  root      1483  1470  0 08:53 ttyS0    00:00:00 ps -ef
+#+END_EXAMPLE
+
+- Installed Packages
+
+#+BEGIN_EXAMPLE
+  app-admin/eselect-1.2.10
+  app-admin/eselect-ctags-1.13
+  app-admin/eselect-emacs-1.13
+  app-admin/eselect-python-20100321
+  app-admin/logrotate-3.7.8
+  app-admin/perl-cleaner-2.2
+  app-admin/python-updater-0.8
+  app-admin/sudo-1.7.2_p7
+  app-admin/syslog-ng-3.1.1
+  app-arch/bzip2-1.0.5-r1
+  app-arch/cpio-2.11
+  app-arch/gzip-1.4
+  app-arch/tar-1.23-r2
+  app-arch/xz-utils-4.999.9_beta
+  app-editors/emacs-23.1-r3
+  app-editors/gentoo-editor-2
+  app-editors/nano-2.2.4
+  app-emacs/emacs-common-gentoo-1.2
+  app-misc/ca-certificates-20090709
+  app-misc/mime-types-8
+  app-misc/pax-utils-0.1.19
+  app-misc/realpath-1.15-r1
+  app-portage/eix-0.19.2
+  app-portage/genlop-0.30.8-r2
+  app-portage/gentoolkit-0.2.4.6.1-r1
+  app-portage/portage-utils-0.3.1
+  app-shells/bash-4.0_p37
+  dev-db/libdrizzle-0.8-r1
+  dev-db/sqlite-3.6.22-r2
+  dev-lang/perl-5.10.1
+  dev-lang/python-2.6.4-r1
+  dev-libs/apr-1.3.9
+  dev-libs/apr-util-1.3.9
+  dev-libs/dbus-glib-0.86
+  dev-libs/eventlog-0.2.10
+  dev-libs/expat-2.0.1-r3
+  dev-libs/geoip-1.4.6
+  dev-libs/glib-2.22.4
+  dev-libs/gmp-4.3.2
+  dev-libs/libatomic_ops-1.2-r1
+  dev-libs/libffi-3.0.9
+  dev-libs/libgcrypt-1.4.5
+  dev-libs/libgpg-error-1.7
+  dev-libs/libpcre-7.9-r1
+  dev-libs/libpthread-stubs-0.1
+  dev-libs/libtasn1-2.7
+  dev-libs/libusb-0.1.12-r5
+  dev-libs/libxml2-2.7.7
+  dev-libs/libxslt-1.1.26
+  dev-libs/mpfr-2.4.2_p3
+  dev-libs/openssl-0.9.8o
+  dev-libs/popt-1.15
+  dev-perl/Authen-SASL-2.12
+  dev-perl/Crypt-SSLeay-0.57
+  dev-perl/DateManip-5.56
+  dev-perl/Digest-HMAC-1.01-r1
+  dev-perl/Digest-SHA1-2.12
+  dev-perl/Error-0.17.016
+  dev-perl/HTML-Parser-3.64
+  dev-perl/HTML-Tagset-3.20
+  dev-perl/HTML-Tree-3.23
+  dev-perl/IO-Socket-SSL-1.33
+  dev-perl/Locale-gettext-1.05-r1
+  dev-perl/Net-SMTP-SSL-1.01
+  dev-perl/Net-SSLeay-1.36
+  dev-perl/TermReadKey-2.30
+  dev-perl/URI-1.38
+  dev-perl/YAML-Tiny-1.41
+  dev-perl/libwww-perl-5.834-r1
+  dev-python/setuptools-0.6.12
+  dev-python/virtualenv-1.4.9
+  dev-util/gperf-3.0.4
+  dev-util/pkgconfig-0.23
+  dev-vcs/git-1.6.4.4
+  dev-vcs/subversion-1.6.11
+  mail-mta/ssmtp-2.62-r7
+  media-sound/alsa-headers-1.0.21
+  net-dns/openresolv-3.3.4
+  net-libs/gnutls-2.8.6
+  net-libs/liblockfile-1.08
+  net-libs/neon-0.29.3
+  net-mail/mailbase-1
+  net-misc/curl-7.20.0-r2
+  net-misc/dhcpcd-5.1.2-r1
+  net-misc/iputils-20071127
+  net-misc/ntp-4.2.4_p7-r1
+  net-misc/openssh-5.3_p1-r1
+  net-misc/rsync-3.0.6
+  net-misc/wget-1.12
+  perl-core/Archive-Tar-1.54
+  perl-core/Compress-Raw-Bzip2-2.021
+  perl-core/Compress-Raw-Zlib-2.021
+  perl-core/Digest-MD5-2.39
+  perl-core/ExtUtils-CBuilder-0.27.03
+  perl-core/ExtUtils-ParseXS-2.22.05
+  perl-core/IO-Compress-2.021
+  perl-core/IO-Zlib-1.09
+  perl-core/MIME-Base64-3.08
+  perl-core/Module-Build-0.36.07
+  perl-core/Package-Constants-0.02
+  perl-core/Scalar-List-Utils-1.21
+  perl-core/Test-Harness-3.17
+  perl-core/digest-base-1.16
+  perl-core/libnet-1.22
+  sys-apps/acl-2.2.49
+  sys-apps/attr-2.4.43
+  sys-apps/baselayout-2.0.1
+  sys-apps/busybox-1.15.3
+  sys-apps/coreutils-8.4
+  sys-apps/dbus-1.2.24
+  sys-apps/debianutils-3.1.3
+  sys-apps/diffutils-2.8.7-r2
+  sys-apps/file-5.03
+  sys-apps/findutils-4.4.2
+  sys-apps/gawk-3.1.6
+  sys-apps/grep-2.5.4-r1
+  sys-apps/groff-1.20.1-r1
+  sys-apps/help2man-1.37.1
+  sys-apps/iproute2-2.6.31
+  sys-apps/kbd-1.15
+  sys-apps/less-436
+  sys-apps/man-1.6f-r3
+  sys-apps/man-pages-3.24
+  sys-apps/man-pages-posix-2003a
+  sys-apps/module-init-tools-3.5
+  sys-apps/net-tools-1.60_p20090728014017-r1
+  sys-apps/openrc-0.6.0-r1
+  sys-apps/pciutils-3.1.4
+  sys-apps/portage-2.1.8.3
+  sys-apps/sandbox-1.6-r2
+  sys-apps/sed-4.2
+  sys-apps/shadow-4.1.2.2
+  sys-apps/sysvinit-2.87-r3
+  sys-apps/tcp-wrappers-7.6-r8
+  sys-apps/texinfo-4.13
+  sys-apps/usbutils-0.86-r1
+  sys-apps/util-linux-2.16.2
+  sys-apps/which-2.20
+  sys-auth/consolekit-0.3.0-r2
+  sys-auth/pambase-20100310
+  sys-devel/autoconf-2.65
+  sys-devel/autoconf-wrapper-8
+  sys-devel/automake-1.11.1
+  sys-devel/automake-wrapper-4
+  sys-devel/bc-1.06.95
+  sys-devel/binutils-2.20.1-r1
+  sys-devel/binutils-config-1.9-r4
+  sys-devel/bison-2.4.1
+  sys-devel/flex-2.5.35
+  sys-devel/gcc-4.4.3-r2
+  sys-devel/gcc-config-1.4.1
+  sys-devel/gettext-0.17-r1
+  sys-devel/gnuconfig-20100122
+  sys-devel/libperl-5.10.1
+  sys-devel/libtool-2.2.6b
+  sys-devel/m4-1.4.12
+  sys-devel/make-3.81
+  sys-devel/patch-2.5.9
+  sys-fs/e2fsprogs-1.41.11
+  sys-fs/fuse-2.8.1
+  sys-fs/sshfs-fuse-2.2
+  sys-fs/udev-151-r1
+  sys-kernel/linux-headers-2.6.32
+  sys-libs/cracklib-2.8.15
+  sys-libs/db-4.7.25_p4
+  sys-libs/e2fsprogs-libs-1.41.11
+  sys-libs/gdbm-1.8.3-r4
+  sys-libs/glibc-2.11.2
+  sys-libs/ncurses-5.7-r3
+  sys-libs/pam-1.1.1-r2
+  sys-libs/readline-6.1
+  sys-libs/timezone-data-2010i
+  sys-libs/zlib-1.2.3-r1
+  sys-process/cronbase-0.3.2-r1
+  sys-process/procps-3.2.8
+  sys-process/psmisc-22.10
+  sys-process/vixie-cron-4.1-r10
+  virtual/acl-0
+  virtual/editor-0
+  virtual/emacs-23
+  virtual/init-0
+  virtual/libffi-0
+  virtual/libiconv-0
+  virtual/libintl-0
+  virtual/libusb-0
+  virtual/pager-0
+  virtual/perl-Archive-Tar-1.54
+  virtual/perl-Compress-Raw-Bzip2-2.021
+  virtual/perl-Compress-Raw-Zlib-2.021
+  virtual/perl-Digest-MD5-2.39
+  virtual/perl-ExtUtils-CBuilder-0.27.03
+  virtual/perl-ExtUtils-ParseXS-2.22.05
+  virtual/perl-IO-Compress-2.021
+  virtual/perl-IO-Zlib-1.09
+  virtual/perl-MIME-Base64-3.08
+  virtual/perl-Module-Build-0.36.07
+  virtual/perl-Package-Constants-0.02
+  virtual/perl-Scalar-List-Utils-1.21
+  virtual/perl-Test-Harness-3.17
+  virtual/perl-digest-base-1.16
+  virtual/perl-libnet-1.22
+  www-client/lynx-2.8.8_pre2
+  www-servers/nginx-0.8.42
+  www-servers/uwsgi-0.9.5
+  x11-libs/libX11-1.3.3
+  x11-libs/libXau-1.0.5
+  x11-libs/libXdmcp-1.0.3
+  x11-libs/libxcb-1.5
+  x11-libs/xtrans-1.2.5
+  x11-misc/util-macros-1.10.0
+  x11-proto/inputproto-2.0
+  x11-proto/kbproto-1.0.4
+  x11-proto/xcb-proto-1.6
+  x11-proto/xextproto-7.1.1
+  x11-proto/xf86bigfontproto-1.2.0
+  x11-proto/xproto-7.0.16
+#+END_EXAMPLE
+** DONE 四季・ユートピアノ 中尾幸世さん
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2010-ae11-dbbf
+:EXPORT_DATE: 2010-07-31 15:14:28
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+「四季・ユートピアノ」または「中尾幸世」という女優(朗読家)を知っているだろうか?
+
+NHKで約20年前に放映した番組の作品である。
+演出は世界の[[http://ja.wikipedia.org/wiki/%E4%BD%90%E3%80%85%E6%9C%A8%E6%98%AD%E4%B8%80%E9%83%8E][佐々木昭一郎]]
+で中尾さんとは2回目の作品となっている。
+中尾さんについての情報は[[http://www.utopiano.com/][微音空間
+中尾幸世]]に詳しく書かれている。
+
+先週の金曜日(2010-07-30)、45年目の誕生日として自分を祝うために、渋谷のユーロスペースで開催された上映会「佐々木昭一郎というジャンル」の最終日を観賞した。
+当日は中尾幸世さんがトークするという情報があったので前売を早めに取った。
+お蔭様で満員のユーロスペースでよい席で「四季・ユートピアノ」を懐かしく観れた。
+
+[[file:/images/20100730266.jpg]]
+
+** DONE Hexo でハロー
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2015-984a-97f1
+:EXPORT_DATE: 2015-04-28 08:49:41
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+Welcome to [[http://hexo.io][Hexo]]!
+
+*** 環境
+   :PROPERTIES:
+   :CUSTOM_ID: 環境
+   :END:
+
+- OS X Yosemite 10.10.3
+- Node.js
+
+#+BEGIN_SRC sh
+  $ git clone git://github.com/creationix/nvm.git ~/.nvm
+  $ test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh
+  $ nvm ls-remote
+  $ nvm install 0.12.2
+  $ node -v
+  v0.12.2
+#+END_SRC
+
+*** 前準備
+   :PROPERTIES:
+   :CUSTOM_ID: 前準備
+   :END:
+
+github でリポジトリほっておく。これは空っぽでよい。
+
+例： Macのbrewでhubをインスコしてた場合
+
+#+BEGIN_SRC sh
+  cd ~/Documents/github
+  mkdir ac1965.github.io
+  cd ac1965.github.io
+  hub init
+  hub create ac1965/ac1965.github.io
+#+END_SRC
+
+*** Hexo インストール
+   :PROPERTIES:
+   :CUSTOM_ID: hexo-インストール
+   :END:
+
+#+BEGIN_SRC sh
+  $ npm install -g hexo
+#+END_SRC
+
+**** 準備（ブログ用のディレクトリを作る）
+    :PROPERTIES:
+    :CUSTOM_ID: 準備ブログ用のディレクトリを作る
+    :END:
+
+hexo init フォルダ
+
+フォルダ指定がないと、カレントに作るのでフォルダ指定しておこう。
+
+#+BEGIN_SRC sh
+  cd ~/Documents
+  $ hexo init site
+  $ cd site
+  $ npm install
+#+END_SRC
+
+**** 動作確認
+    :PROPERTIES:
+    :CUSTOM_ID: 動作確認
+    :END:
+
+#+BEGIN_SRC sh
+  $ hexo server
+#+END_SRC
+
+この状態でウェブ・ブラウザから[[http://localhost:4000/][http://localhost:4000]]で確認してみる。
+
+**** Github にデプロイしてみる
+    :PROPERTIES:
+    :CUSTOM_ID: github-にデプロイしてみる
+    :END:
+
+Hexo の 3.0 以降はどうやらデプロイがぐぐってみたのと違う。
+
+#+BEGIN_SRC sh
+  $ hexo deploy
+  ERROR Deployer not found: github
+#+END_SRC
+
+ようはデプロイヤが github から git
+に変わったのと、モジュールをインストールする必要があった。
+
+#+BEGIN_SRC sh
+  $ npm install hexo-deployer-git --save
+#+END_SRC
+
+詳しくは：[[https://github.com/hexojs/hexo/issues/1040]]
+
+参考：_config.ymlの deploy部分
+
+#+BEGIN_EXAMPLE
+  deploy:
+    type: git
+    repo: git@github.com:ac1965/ac1965.github.io.git
+    branch: master
+#+END_EXAMPLE
+
+**** テーマを変えてみよう
+    :PROPERTIES:
+    :CUSTOM_ID: テーマを変えてみよう
+    :END:
+
+[[http://hexo.io/themes/][テーマ]] で気に入ったものを探してみるとか。
+
+#+BEGIN_SRC sh
+  $ git clone https://github.com/joyceim/hexo-theme-apollo.git themes/apollo
+#+END_SRC
+
+参考：_config.ymlの languageとthemes 部分
+
+#+BEGIN_EXAMPLE
+  language: defualt
+  ...
+  theme: apollo
+#+END_EXAMPLE
+
+**** ポスト
+    :PROPERTIES:
+    :CUSTOM_ID: ポスト
+    :END:
+
+#+BEGIN_SRC sh
+  $ hexo new "My New Post"
+  INFO  Created: ~/Documents/site/source/_posts/My-New-Post.md
+#+END_SRC
+
+source/_posts/My-New-Post.md
+をエディタで編集（[[https://help.github.com/articles/github-flavored-markdown/][GFM]]:Github
+Flavored Markdown）ですね。
+
+詳しくは： [[http://hexo.io/docs/writing.html][Writing]]
+
+**** 静的ファイルの作成
+    :PROPERTIES:
+    :CUSTOM_ID: 静的ファイルの作成
+    :END:
+
+#+BEGIN_SRC sh
+  $ hexo generate
+  $ hexo generate --deploy
+  $ hexo deploy --generate
+#+END_SRC
+
+詳しくは： [[http://hexo.io/docs/generating.html][Generating]]
+** DONE Using Packer for Archassult
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2015-92a5-278e
+:EXPORT_DATE: 2015-04-28 14:24:13
+:EXPORT_HUGO_TAGS: archassult packer
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** すこしまとめてみる
+   :PROPERTIES:
+   :CUSTOM_ID: すこしまとめてみる
+   :END:
+
+**** 前提
+    :PROPERTIES:
+    :CUSTOM_ID: 前提
+    :END:
+
+- base は ArchLinux ISO からつくる
+- ArchAssault の環境は repository 掘るところ位まで
+- もちろん
+  [[https://www.virtualbox.org][virtualbox]]、[[https://www.vagrantup.com][vagrant]]、[[https://www.vagrantup.com][packer]]
+  の環境は作成済み
+
+*** じつのところ
+    :PROPERTIES:
+    :CUSTOM_ID: じつのところ
+    :END:
+
+Packer の細かい設定はわからん。Vagrant の box
+を作るパッケージであることは知っているが。 ということで、ベースの box
+を作ったら =vagrat up=
+でバシバシ環境をデプロイするほうがよいと思い始めている。
+
+*** 作成
+    :PROPERTIES:
+    :CUSTOM_ID: 作成
+    :END:
+
+#+BEGIN_SRC sh
+  $ git clone https://github.com/ac1965/archassault-packer.git
+  $ cd archassult-packer
+  $ packer build -only=virtualbox-iso template.json
+  $ vagrant box add archassault packer_archassault_virtualbox.box
+  $ vagrant init archassult
+  $ vagrant up
+#+END_SRC
+
+**** 手をつけているところ
+     :PROPERTIES:
+     :CUSTOM_ID: 手をつけているところ
+     :END:
+
+Cuckoo環境の半自動生成 *
+[[http://www.cuckoosandbox.org][Cuckoo]]で簡易マルウェア自動解析をしよう
+*
+[[http://cuckoo.readthedocs.org/en/latest/installation/guest/][ゲストOSの準備]]
+あらかじめに [[https://www.modern.ie/ja-jp][ModernIE]] から Linux 版の
+Virtualboxイメージをダウンロードして、[[https://www.python.org/getit/][Python]]
+と [[http://www.pythonware.com/products/pil/][PIL(Python Image
+Lirary)]]をインスコしておく。 cuckoo の agent.py を自動起動できるように
+agent.pwy にリネームして、自動起動できるようにしておく。
+
+#+BEGIN_SRC sh
+  reg.exe ADD "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run" -v "Agent" -t REG_SZ -d "C:\Python27\agent.pyw"
+#+END_SRC
+
+*** 参考
+    :PROPERTIES:
+    :CUSTOM_ID: 参考
+    :END:
+
+- [[https://www.archlinux.org][Archlinux]]
+- [[https://www.archassault.org][ArchAssault]]
+- [[https://github.com/elasticdog/packer-arch][Archlinux用のPackerテンプレ]]
+- [[https://github.com/ac1965/archassault-packer][オレオレ Packer]]
+** DONE 健康診断
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2016-fbf9-cc8d
+:EXPORT_DATE: 2016-05-07 11:59:21
+:EXPORT_HUGO_TAGS: medicalcheck
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** 定期検診
+   :PROPERTIES:
+   :CUSTOM_ID: 定期検診
+   :END:
+
+今日は60日ぶりの定期検診。
+
+血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。[[file:/images/blood-pressure-result.jpg]]
+
+お薬もいただかなくては、ゾロばかりだけど。[[file:/images/medicine.jpg]]
+
+** DONE What Blog?
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2016-d5bf-eafd
+:EXPORT_DATE: 2016-06-18 11:14:19
+:EXPORT_HUGO_TAGS: tweet
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** ブログってw
+   :PROPERTIES:
+   :CUSTOM_ID: ブログってw
+   :END:
+毎日記録するものだから、筆不精の自分に向いていないのは知っている。
+紙の日記も三日坊主だしね。
+
+そもそも、ブログは作っては壊して、結局ログとして残っていないのが大半なのだ。
+
+日記はのび太の日記になりそう。
+
+「眠い」 「お腹が空いた」
+とか、でもそう考えると、のび太はツィッターだったらヘビー級だろうな(笑)
+** DONE Hugo
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2020-64ac-ab0e
+:EXPORT_DATE: 2020-10-27 22:46:10
+:EXPORT_HUGO_TAGS: hugo
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+*** Hexo から Hugo
+   :PROPERTIES:
+   :CUSTOM_ID: hexo-から-hugo
+   :END:
+サイトジェネレータを [[https://https://gohugo.io][Hugo]] に変えてみた。
+インストールといっても、homebrew を使うので簡単ですが :grin:
+
+[[https://www.webfx.com/tools/emoji-cheat-sheet/][EMOJI-CHEAT-SHEET]]
+*** インストール
+   :PROPERTIES:
+   :CUSTOM_ID: インストール
+   :END:
+[[https://brew.sh/index_ja][Homebrew]] はインストール済みとして、
+#+BEGIN_SRC sh
+  $ brew update
+  $ brew install hugo
+#+END_SRC
+テーマは、[[https://conao3.com][conao3さん]] の
+[[https://github.com/conao3/anatole-ext][anatole-ext]] にした。
+#+BEGIN_SRC sh
+  $ hugo new site hoge
+  $ cd hoge
+  $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext
+  $ hugo new posts/first-article.md
+#+END_SRC
+これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
+*** 自分用のメモ
+**** 展開
+#+BEGIN_SRC sh
+  $ git clone git@github.com:ac1965/hugo.git ./hugo-blog
+  $ cd hugo-blog
+  $ git clone git@github.com:ac1965/anatole-ext themes/anatole-ext
+  $ hugo
+#+END_SRC
+hugo コマンドで、publicディレクトリ下にコンテンツが生成される。
+**** `deploy.sh'
+hexo と大きく違うのは deploy は利用者まかせかな。
+
+私の環境では本体と公開用の gitリポジトリで管理していて、 本体は
+hugo-blog、公開用は ac1965.github.com で分けている。
+#+BEGIN_SRC sh
+  #! /bin/bash
+
+  hugo=~/devel/repos/hugo-blog
+  public=~/devel/repos/ac1965.github.io
+
+  abort ()
+  {
+      echo -e "\033[1;30m>\033[0;31m>\033[1;31m> ERROR:\033[0m${@}\n" && exit
+  }
+
+  info ()
+  {
+      echo -e "\033[1;30m>\033[0;36m>\033[1;36m> \033[0m${@}\n"
+  }
+
+  warn ()
+  {
+      echo -e "\033[1;30m>\033[0;33m>\033[1;33m> \033[0m${@}\n"
+  }
+
+  test -d ${hugo} && cd ${hugo} || abort "${hogo} directory not found."
+  # clean public
+  rm -fr public
+
+  info "Deploying updates to GitHub..."
+
+  # Build the project.
+  hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+
+  # Go To Public folder
+  test -d ${public} && cd ${public} || exit
+  info "rsync.."
+  rsync -at --delete --exclude=".git" ${hugo}/public/. .
+
+  # Add changes to git.
+  git add .
+  git commit -avm "update:$(env LANG=C date)" && git push
+#+END_SRC
+** DONE iPhone 12 Pro
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2020-4b4f-83fe
+:EXPORT_DATE: 2020-11-15 08:53:00
+:EXPORT_HUGO_TAGS: iphone
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+変え替え時ということで、iPhone を 8plus から 12pro に機種変更をした。
+8plus からの変更で大きいのは顔認証に変わったことだが、それよりも少しだけ小さいのだが、いい感じ。
+一通りアプリの復元、Walletの復元をした。
+一番面倒だったのが、なんとかPay系のアプリ。これは再認証を必要とするものがあったから。
+
+*** 箱から開けた
+[[file:/images/1st-shot.png]]
+*** PCだけの光
+[[file:/images/2nd-shot.png]]
+
+** DONE 不要不急
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-3072-328a
+:EXPORT_DATE: 2021-02-20 16:43:00
+:EXPORT_HUGO_TAGS: covid-19
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+人にとって必要なエクスペリエンスは、不要不急の中で生まれるものが多いと思う。
+
+不要不急を抑止されているコロナ禍の中で、人は豊かな生活を求めることができるのだろうか。
+
+** DONE 貝殻喫茶室
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-b683-9118
+:EXPORT_DATE: 2021-02-28 19:50:00
+:EXPORT_HUGO_TAGS: eat
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+貝殻弁当をテイクアウトした時に、パンもテイクアウトしたいね、って店主さんの奥様に話したんだ。
+
+早くも、週末に実現させていただいた。パンセットを受け取りした時に奥様から、物足りないかも、と言われたけど、そんなことないです。
+
+[[file:/images/kaigara-01.jpeg]]
+[[file:/images/kaigara-02.jpeg]]
+
+** DONE 2021 GW 大瀧詠一
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-ae45-5638
+:EXPORT_DATE: 2021-04-29 09:02:23
+:EXPORT_HUGO_TAGS: music
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+2021年のGWに入った。今年は 4/30を休みにしたから8日連休になった :-)
+
+大瀧詠一さんを久しぶりに聴きたくなってググってたら、ナイアガラ・サウンドのルーツとは？というのにぶつかった。
+
+
+https://www.tbsradio.jp/140516
+
+https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-大滝詠一/dp/B0007NFTP6/ref=sr_1_22?__mk_ja_JP=カタカナ&dchild=1&keywords=ナイアガラ・
+
+サイトは文字だけだったので、Youtubeから音を探してみた。
+
+元ネタというか体に染み付いているんだろうね。ここはパクリと言ってはいけない(笑)
+
+*** 君は天然色
+{{< youtube lMzAd4DBNWI >}}
+
+The Pixies Three - Cold Cold Winter
+{{< youtube Ta3U5wN9IlU >}}
+
+The Honeycombs - Color Slide
+{{< youtube GtjPgTNRl30 >}}
+
+
+*** 風立ちぬ
+{{< youtube Iu2TNkaqMKQ >}}
+
+Jimmy Clanton - Venus In Blue Jeans
+{{< youtube _13davmxPb4 >}}
+
+*** 夢で逢えたら
+{{< youtube VLe-bHNwFCo >}}
+
+The Shirelles - Foolish Little Girl
+{{< youtube 8zAX5StHD6A >}}
+
+*** うなずきマーチ
+{{< youtube Nxn-wrZrSXk >}}
+
+The Rivingtons - Papa Oom Mow Mow
+{{< youtube EQrQjNNZCAo >}}
+** DONE 2021 GW なろう系小説
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-4317-c611
+:EXPORT_DATE: 2021-05-01
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+重たい読み物は GW には向いていない。ライトノベルだな。
+
+全然内容は違うが、ライトウェイトランゲージ(LL)って言葉を今の人は知らないそうだ。少なくとも俺より8歳下の職場の人は知らなかった。
+インタープリタって、いうのは理解できたのだが、インタープリタの方を知らない方が多いのではと思ったから少し違和感がある。
+
+*** 聖女の魔力は万能です
+「[聖女の魔力は万能です](https://ncode.syosetu.com/n8139dg/)」読了。
+とはいっても、この小説は継続中なので、5月1日時点で読める分を読了が正しい。
+
+コミック本もアニメもある。というか、なろう系小説は、ほとんどがそのよう。
+
+*** 転生したらスライムだった件
+「[転生したらスライムだった件](https://ncode.syosetu.com/n6316bn/)」読了。
+
+これは4月時点で読了。アニメの方は第二シーズンに向けおやすみ中。
+
+*** 無職転生 - 異世界行ったら本気だす -
+「[無職転生 - 異世界行ったら本気だす -](https://ncode.syosetu.com/n9669bk/)」読了。
+
+なろう系小説という言葉自体を覚えたのが、この小説から。もっとも、これより前から、なろう系出身のアニメは見てたみたい。転スラがそうだな。
+
+*** これから
+GW はこれからが本番 :laughing:
+
+何を次に読もうか決めていない。
+この前に届いた「[ダンジョンに出会いを求めるのは間違っているだろうか](https://www.amazon.co.jp/gp/product/B08XM5PBMJ/ref=ppx_yo_dt_b_d_asin_title_o05?ie=UTF8&psc=1)」
+でも読もうかな。Kindle本は読んでないものも積んでいるし:laughing:
+
+ここから下は本文と関係なし。備忘録。
+
+:scream: :boom: :musical_note: :musical_note: :hankey:
+[絵文字チート](https://www.webfx.com/tools/emoji-cheat-sheet/)
+
+TODO<->DONE (C-c C-t)
+[Orgチート](https://emacsclub.github.io/html/org_tutorial.html)
+** DONE ひさしぶりに
+CLOSED: [2023-12-03 Sun 14:13]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2023-76f0-5099
+:EXPORT_DATE: 2023-12-03
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+歳をとってエンジニアとしての仕事ができなくなって、狡猾にもコンサルタントを生業としはじめ5年目に入ろうとしている。
+この仕事も面白いのだが、胸躍る刺激はない。コミットメントがないことも理由だが、跳ね返るものに喜びを得てない、感じないところが大きい。
+
+とはいえ、他に口を出せるものもないし。
+** DONE Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean
+CLOSED: [2024-03-16 Sat 13:14]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-32af-0903
+:EXPORT_DATE: 2024-03-16
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES: Wired Eearphone
+:EXPORT_HUGO_LASTMOD:
+:END:
+イアフォンは、それまで常用のSHUREのSE215(無印)のコネクター部分が壊れた上に、
+Apple AirPods Proは落としてシャリシャリしているし[[https://www.amazon.co.jp/dp/B09CZHN9VF/ref=sspa_dk_detail_0?pd_rd_i=B09CZHN9VF&pd_rd_w=rUZbI&content-id=amzn1.sym.f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_p=f293be60-50b7-49bc-95e8-931faf86ed1e&pf_rd_r=J7R8B10MRFQNY5X13CEZ&pd_rd_wg=mIVsH&pd_rd_r=89b7d26a-db8f-4b66-9e1d-d0d1e9643baf&s=musical-instruments&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1][SHURE AONIC 215]]のMMXコネクタの接点不良で片耳が聴こえない。
+
+そんな状況で中華イアフォンとしてははじめて昨年(2023年10月)に買った[[https://www.amazon.co.jp/1DDダイナミック型HiFiイヤホン-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C39PK494?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C39PK494&psc=1&ref_=pd_bap_d_grid_rp_0_16_i][LINKSOULのKiwi Ears Dolce]]で有線イアフォンの深淵に浸かってしまった。
+でも、リケーブルしてDolceを使っていたけど、左耳がコネクタから外れてなくしてしまった🥲
+
+その次に買ったのは同じKiwiの[[https://www.amazon.co.jp/Linsoul-リケーブル可能のデザイン-0-78mm2pinコネクタの採用-バランスな音質表現を持ちハイエンドイヤホン-ミキシング用の中華製イヤホン/dp/B0C48QLNSQ?pd_rd_w=BuYlF&content-id=amzn1.sym.a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_p=a8cbdd54-57d2-48f2-94b3-7515d6146573&pf_rd_r=GH16TVWVRCJ4GN9KA0JJ&pd_rd_wg=rGYXP&pd_rd_r=38b3f7a9-4f01-4a75-86d8-395986f247d3&pd_rd_i=B0C48QLNSQ&psc=1&ref_=pd_bap_d_grid_rp_0_17_i][Linsoul Kiwi Ears Quartet]]だけどデカいのとステムが太くて、常用できなかった。
+そんな中で、[[https://www.amazon.co.jp/dp/B097XTBYV8?linkCode=sl1&tag=ymr1107-22&linkId=01d6a9862f87a25980ed8c8ccafc40b0&language=ja_JP&ref_=as_li_ss_tl&th=1][Yinyoo CCZ Coffee Bean]]のネーミングとコスト面でAmazonでポチった👇
+
+寝ながらフォンとしても、音質・音圧も好みで一軍利用。
+[[file:/images/coffee-bean.png]]

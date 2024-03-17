@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guruplug on Not Good Father</title>
+    <link>http://localhost:1313/tags/guruplug/</link>
+    <description>Recent content in Guruplug on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 17 Mar 2024 14:02:32 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/guruplug/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Guruplug Arrived</title>
+      <link>http://localhost:1313/blog/2010-e6dc-e8c7/</link>
+      <pubDate>Mon, 12 Jul 2010 23:31:00 +0900</pubDate>
+      <guid>http://localhost:1313/blog/2010-e6dc-e8c7/</guid>
+      <description>出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。 もしかしたら、Plus 注文と間違えられてかも。 一昨日Globa</description>
+    </item>
+    <item>
+      <title>Guruplug　届くまでにやったこと</title>
+      <link>http://localhost:1313/blog/2010-ceb7-ee44/</link>
+      <pubDate>Wed, 14 Apr 2010 23:31:00 +0900</pubDate>
+      <guid>http://localhost:1313/blog/2010-ceb7-ee44/</guid>
+      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug</description>
+    </item>
+    <item>
+      <title>Guruplug Std.</title>
+      <link>http://localhost:1313/blog/2010-f5af-e341/</link>
+      <pubDate>Thu, 18 Feb 2010 20:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/blog/2010-f5af-e341/</guid>
+      <description>今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLi</description>
+    </item>
+  </channel>
+</rss>

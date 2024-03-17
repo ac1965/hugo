@@ -1,0 +1,21 @@
+baseURL = 'https://www.ty07.net'
+title = 'Not Good Father'
+DefaultContentLanguage = 'ja'
+languageCode = 'ja-jp'
+pagenate = '10'
+theme = 'github-style'
+enableEmoji = true
+enableInlineShortcodes = true
+enableGitInfo = true
+hasCJKLanguage = true
+
+[Params]
+subtitle = 'The sound, old pond and frog jump into water.'
+logo = '/images/logo.jpg'
+favicon = '/images/logo.jpg'
+
+[Author]
+author = 'ac1965'
+github = 'ac1965'
+twitter = 'ac1965'
+instagram = 'ac1965'

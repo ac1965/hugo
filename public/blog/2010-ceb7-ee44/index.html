@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='http://localhost:1313/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='http://localhost:1313/css/frameworks.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github.min.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/github-style.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/light.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/dark.css' />
+    <link rel="stylesheet" href='http://localhost:1313/css/syntax.css' />
+    <title>Guruplug　届くまでにやったこと - Not Good Father</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/logo.jpg'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+<meta name="keywords"
+  content='' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/blog/2010-ceb7-ee44/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Guruplug　届くまでにやったこと - Not Good Father" />
+<meta name="twitter:description"
+  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+<meta name="twitter:site" content="http://localhost:1313/" />
+<meta name="twitter:creator" content="[YAMASHITA Takao]" />
+<meta name="twitter:image"
+  content="http://localhost:1313/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Guruplug　届くまでにやったこと - Not Good Father">
+<meta property="og:description"
+  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+<meta property="og:url" content="http://localhost:1313/blog/2010-ceb7-ee44/" />
+<meta property="og:site_name" content="Guruplug　届くまでにやったこと" />
+<meta property="og:image"
+  content="http://localhost:1313/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2010-04-14 23:31:00 &#43;0900 JST" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="http://localhost:1313/">
+        <img class="octicon" height="32" width="32" src="">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <img height="24" class="octicon octicon-three-bars" width="24" src="">
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:http://localhost:1313/">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="http://localhost:1313/">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="http://localhost:1313/">
+                  <img class=" avatar-user"
+                    src="http://localhost:1313/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="http://localhost:1313/"></a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="http://localhost:1313/blog/2010-ceb7-ee44/">Guruplug　届くまでにやったこと</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Wed, 14 Apr 2010 23:31:00 &#43;0900"
+                    class="no-wrap">
+                    Wed, 14 Apr 2010 23:31:00 &#43;0900</relative-time>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      1629 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                    
+                    <a class="muted-link mr-3" href="/tags/guruplug">
+                      <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                          d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                        </path>
+                      </svg>
+                      guruplug
+                    </a>
+                    
+                    <a class="muted-link mr-3" href="/tags/crossdev">
+                      <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                          d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                        </path>
+                      </svg>
+                      crossdev
+                    </a>
+                    
+                    <a class="muted-link mr-3" href="/tags/linux">
+                      <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                          d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                        </path>
+                      </svg>
+                      linux
+                    </a>
+                    
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h2 id="guruplug-が届く前に環境を作っておこう">guruplug が届く前に環境を作っておこう</h2>
+<h2 id="日目">1日目</h2>
+<p>:CUSTOM_ID: guruplug-が届く前に環境を作っておこう</p>
+<p>クロスコンパイル環境とか、ルートファイルシステムなど。
+<a href="http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22">GuruPlug
+Wiki</a> に加筆したものも含めて、めもです。</p>
+<h3 id="参考にしたポイント">参考にしたポイント</h3>
+<ul>
+<li><a href="http://www.gentoo.org/proj/en/base/embedded/cross-development.xml">cross-development</a></li>
+<li><a href="http://computingplugs.com/index.php/Building_a_custom_kernel">Building
+Kernel</a></li>
+<li><a href="http://www.plugcomputer.org/plugwiki/index.php/GuruPlug">GuruPlug</a></li>
+</ul>
+<p>クロスコンパイルは <a href="http://www.gnu.org/software/hurd/">GNU Hurd</a>
+で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。</p>
+<h3 id="クロスコンパイル環境のセットアップ">クロスコンパイル環境のセットアップ</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># emerge -av portage-utils crossdev</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># crossdev armv5tel-softfloat-linux-gnueabi</span>
+</span></span></code></pre></div><h3 id="u-boot-とカーネルセットアップ">U-Boot とカーネルセットアップ</h3>
+<p>これは Wiki に書いてあるとおり。
+最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cd u-boot-marvell.git</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># git checkout -b testing origin/testing</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make mrproper</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make guruplug_config</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make u-boot.kwb CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi-</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cp tools/mkimage /usr/bin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># wget http://www.plugcomputer.org/plugwiki/images/8/81/Guruplug-patchset.tar.bz2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tar xfj Guruplug-patchset.tar.bz2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-2.6.33.y.git</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># for p in guruplug-patchset/*; do patch -p1 -E -d linux-2.6.33.y.git &lt; $p; done</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cd linux-2.6.33.y.git</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm clean</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm guruplug_defconfig</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm uImage</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules_install INSTALL_MOD_PATH=/usr/armv5tel-softfloat-linux-gnueabi</span>
+</span></span></code></pre></div><h3 id="mtd-toolsのセットアップ">mtd-toolsのセットアップ</h3>
+<p>git repository(git://git.infradead.org/mtd-utils.git)を使ってみる。
+ubifs でルートファイルシステムを構築する準備です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild compile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild merge</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild clean</span>
+</span></span></code></pre></div><h3 id="ルートファイルシステムのセットアップ">ルートファイルシステムのセットアップ</h3>
+<p>crossdev で作ったクロスコンパイラで基本システム(stage1)を構築する。
+ところが、`cpio&rsquo; でコンパイル失敗している。</p>
+<p>眠いので今日はここまで。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># cd /usr/armv5tel-softfloat-linux-gnueabi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mkdir etc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cd etc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ln -s /usr/portage/profiles/default/linux/arm/10.0 make.profile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cp /tmp/make.conf-arm make.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># armv5tel-softfloat-linux-gnueabi-emerge -av @system</span>
+</span></span></code></pre></div><ul>
+<li>参考：/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf</li>
+</ul>
+<p>僕の環境なので同じである必要はない。 ROOT=&quot;&hellip;&quot; の default は &ldquo;/&rdquo;
+なので指定しておかないとoverwrite されるので注意
+あと、クロスコンパイルの場合 CBUILD は必要。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span># NEVER change this
+</span></span><span style="display:flex;"><span>CHOST=&#34;armv5tel-softfloat-linux-gnueabi&#34;
+</span></span><span style="display:flex;"><span>CBUILD=i686-pc-linux-gnu
+</span></span><span style="display:flex;"><span>CHOST=${CHOST}
+</span></span><span style="display:flex;"><span>ARCH=&#34;arm&#34;
+</span></span><span style="display:flex;"><span>ROOT=/usr/${CHOST}/
+</span></span><span style="display:flex;"><span>ACCEPT_KEYWORDS=&#34;arm ~arm&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># You can edit these.
+</span></span><span style="display:flex;"><span>USE=&#34;-X -cdr -kde -gnome -qt -gtk -fortran -opengl -quicktime -cups \
+</span></span><span style="display:flex;"><span>        -tcpd -apache -gpm -slang nls cjk \
+</span></span><span style="display:flex;"><span>        -alsa -xscreensaver \
+</span></span><span style="display:flex;"><span>        ssl userlocales apache2 sasl nptl nptlonly threads unicode utf8 \
+</span></span><span style="display:flex;"><span>        bzip2 crypt loop-aes mysql mysqli sqlite xmlrpc bash-completion \
+</span></span><span style="display:flex;"><span>        idn glibc-omitfp \
+</span></span><span style="display:flex;"><span>        dvd dvdr cdda cddb \
+</span></span><span style="display:flex;"><span>        mp3 vorbis wavepack wma mpeg ogg rtsp x264 win32codecs libv412 v4l2 v4l \
+</span></span><span style="display:flex;"><span>        wifi bluetooth curl git -dso subversion lzma&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>APACHE2_MODULES=&#34; \
+</span></span><span style="display:flex;"><span>        auth auth_basic authz_user authz_host authn_dbd authz_dbd dbd \
+</span></span><span style="display:flex;"><span>        alias filter deflate mime mime_magic expires headers unique_id \
+</span></span><span style="display:flex;"><span>        vhost_alias rewrite log_config logio env setenvif autoindex dir \
+</span></span><span style="display:flex;"><span>        proxy proxy_http dav dav_fs \
+</span></span><span style="display:flex;"><span>        &#34;
+</span></span><span style="display:flex;"><span>APACHE2_MPMS=&#34;worker&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># Think twice about editing these.
+</span></span><span style="display:flex;"><span>MAKEOPTS=&#34;-j5&#34;
+</span></span><span style="display:flex;"><span>CFLAGS=&#34;-Os -march=armv5te -pipe -fomit-frame-pointer&#34;
+</span></span><span style="display:flex;"><span>CXXFLAGS=&#34;${CFLAGS}&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>#FEATURES=&#34;distcc parallel-fetch userfetch userpriv&#34;
+</span></span><span style="display:flex;"><span>FEATURES=&#34;parallel-fetch userfetch userpriv buildpkg&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORTAGE_TMPDIR=&#34;/var/tmp/cross&#34;
+</span></span><span style="display:flex;"><span>BUILD_PREFIX=&#34;${PORTAGE_TMPDIR}&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>GENTOO_MIRRORS=&#34;http://gentoo.gg3.net/&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ACCEPT_LICENSE=&#34;*&#34;
+</span></span></code></pre></div><h2 id="日目-1">2日目</h2>
+<h3 id="cpioのコンパイルエラーは-stat--2">cpioのコンパイルエラーは、stat(2)</h3>
+<p>の引数が指定されていなかっただけだった。</p>
+<p>:CUSTOM_ID: cpioのコンパイルエラーはstat2-の引数が指定されていなかっただけだった</p>
+<p>野良ebuild を狭んで、おけー。</p>
+<ul>
+<li>src/filtypes.h の patch</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>diff -urN cpio-2.11-/src/filetypes.h cpio-2.11/src/filetypes.h
+</span></span><span style="display:flex;"><span>--- cpio-2.11-/src/filetypes.h  2010-04-15 18:03:16.639694128 +0900
+</span></span><span style="display:flex;"><span>+++ cpio-2.11/src/filetypes.h   2010-04-15 18:04:03.545691921 +0900
+</span></span><span style="display:flex;"><span>@@ -82,4 +82,4 @@
+</span></span><span style="display:flex;"><span> #define lstat stat
+</span></span><span style="display:flex;"><span> #endif
+</span></span><span style="display:flex;"><span> int lstat ();
+</span></span><span style="display:flex;"><span>-int stat ();
+</span></span><span style="display:flex;"><span>+int stat (const char *path, struct stat *buf);
+</span></span></code></pre></div><h3 id="野良ebuild-cpio-2.11-r1.ebuild">野良ebuild cpio-2.11-r1.ebuild</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span># Copyright 1999-2010 Gentoo Foundation
+</span></span><span style="display:flex;"><span># Distributed under the terms of the GNU General Public License v2
+</span></span><span style="display:flex;"><span># $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>inherit eutils
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EAPI=&#34;2&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DESCRIPTION=&#34;A file archival tool which can also read and write tar files&#34;
+</span></span><span style="display:flex;"><span>HOMEPAGE=&#34;http://www.gnu.org/software/cpio/cpio.html&#34;
+</span></span><span style="display:flex;"><span>SRC_URI=&#34;mirror://gnu/cpio/${P}.tar.bz2&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LICENSE=&#34;GPL-3&#34;
+</span></span><span style="display:flex;"><span>SLOT=&#34;0&#34;
+</span></span><span style="display:flex;"><span>KEYWORDS=&#34;~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd&#34;
+</span></span><span style="display:flex;"><span>IUSE=&#34;nls&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src_configure() {
+</span></span><span style="display:flex;"><span>    econf \
+</span></span><span style="display:flex;"><span>        $(use_enable nls) \
+</span></span><span style="display:flex;"><span>        --bindir=/bin \
+</span></span><span style="display:flex;"><span>        --with-rmt=/usr/sbin/rmt \
+</span></span><span style="display:flex;"><span>        || die
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src_install() {
+</span></span><span style="display:flex;"><span>    emake install DESTDIR=&#34;${D}&#34; || die
+</span></span><span style="display:flex;"><span>    dodoc ChangeLog NEWS README
+</span></span><span style="display:flex;"><span>    rm &#34;${D}&#34;/usr/share/man/man1/mt.1 || die
+</span></span><span style="display:flex;"><span>    rmdir &#34;${D}&#34;/usr/libexec || die
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src_unpack() {
+</span></span><span style="display:flex;"><span>    unpack ${A}
+</span></span><span style="display:flex;"><span>    cd &#34;${S}&#34;
+</span></span><span style="display:flex;"><span>    epatch &#34;${FILESDIR}&#34;/${P}-filetypes.patch
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="日目-2">3日目</h2>
+<h3 id="クロス環境での-stage1-がエラーで出来ていない状態">クロス環境での stage1 がエラーで出来ていない状態</h3>
+<p>ものが届いていないのでまぁゆったりとな。 あとで、distcc
+でホストマシンでコンパイルできるように
+クロスコンパイル環境を作り直そう。</p>
+<p>クロス環境消して、ホスト環境とバージョンを合せておこうっと。</p>
+<p>SYSROOT を検索する必要があるため binutils-2.19.51.0.12 より上にする。
+<a href="http://bugs.gentoo.org/275666">http://bugs.gentoo.org/275666</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># crossdev --clean armv5tel-softfloat-linux-gnueabi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># emerge -p binutils linux-headers gcc glibc</span>
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ebuild   R   <span style="color:#f92672">]</span> sys-devel/binutils-2.20.1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ebuild   R   <span style="color:#f92672">]</span> sys-kernel/linux-headers-2.6.29
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ebuild   R   <span style="color:#f92672">]</span> sys-devel/gcc-4.3.3-r2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ebuild   R   <span style="color:#f92672">]</span> sys-libs/glibc-2.9_p20081201-r2
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># crossdev -t armv5tel-softfloat-linux-gnueabi \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    --b 2.20.1 \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    --k 2.6.29 \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    --g 4.3.3-r2 \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    --l 2.9_p20081201-r2 \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    --ex-gdb</span>
+</span></span></code></pre></div><h2 id="日目-3">4日目</h2>
+<h3 id="クロスコンパイル環境で-arm--armv5tel--用の-gentoo-stage1">クロスコンパイル環境で ARM(armv5tel)用の gentoo stage1</h3>
+<p>ができたので動作確認をした</p>
+<p>:CUSTOM_ID: クロスコンパイル環境で-armarmv5tel用の-gentoo-stage1-ができたので動作確認をした</p>
+<p>正しくは perl と Linux-PAM はクロスコンパイルができなかったので、 own
+で作ることになるが。</p>
+<h3 id="httpwww.gentoo.orgprojenbaseembeddedhandbookpart1chap5"><a href="http://www.gentoo.org/proj/en/base/embedded/handbook/?part=1&amp;chap=5">http://www.gentoo.org/proj/en/base/embedded/handbook/?part=1&amp;chap=5</a></h3>
+<p>QEMU の user-mode + binfmt + chroot で動作確認をした。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># export PS1=&#34;(`uname -m`:\W) &#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> USE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;static&#34;</span> emerge --buildpkg --oneshot qemu-user
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> ROOT<span style="color:#f92672">=</span>/usr/armv5tel-softfloat-linux-gnueabi emerge --usepkgonly qemu-user
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> cat qemu-wrapper.c
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include &lt;stdio.h&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include &lt;unistd.h&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>int main<span style="color:#f92672">(</span>int argc, char **argv, char **envp<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    char *newargv<span style="color:#f92672">[</span>argc + 3<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    newargv<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> argv<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    newargv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-cpu&#34;</span>;
+</span></span><span style="display:flex;"><span>    newargv<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cortex-a8&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   memcpy<span style="color:#f92672">(</span>&amp;newargv<span style="color:#f92672">[</span>3<span style="color:#f92672">]</span>, &amp;argv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>, sizeof<span style="color:#f92672">(</span>*argv<span style="color:#f92672">)</span> * <span style="color:#f92672">(</span>argc - 1<span style="color:#f92672">))</span>;
+</span></span><span style="display:flex;"><span>   newargv<span style="color:#f92672">[</span>argc + 2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> execve<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/usr/bin/qemu-arm&#34;</span>, newargv, envp<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> gcc -static qemu-wrapper.c -o qemu-wrapper
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> cp qemu-wrapper /usr/armv5tel-softfloat-linux-gnueabi
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> <span style="color:#f92672">[</span> -d /proc/sys/fs/binfmt_misc <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> modprobe binfmt_misc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> <span style="color:#f92672">[</span> -f /proc/sys/fs/binfmt_misc/register <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> echo <span style="color:#e6db74">&#39;:arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/qemu-wrapper:&#39;</span> &gt; /proc/sys/fs/binfmt_misc/register
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> cat /proc/sys/fs/binfmt_misc/arm
+</span></span><span style="display:flex;"><span>enabled
+</span></span><span style="display:flex;"><span>interpreter /qemu-wrapper
+</span></span><span style="display:flex;"><span>flags:
+</span></span><span style="display:flex;"><span>offset <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>magic 7f454c4601010100000000000000000002002800
+</span></span><span style="display:flex;"><span>mask ffffffffffffff00fffffffffffffffffeffffff
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> <span style="color:#f92672">[</span> -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>install -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> <span style="color:#f92672">[</span> -d /usr/armv5tel-softfloat-linux-gnueabi/proc <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>install -d /usr/armv5tel-softfloat-linux-gnueabi/proc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> <span style="color:#f92672">[</span> -d /usr/armv5tel-softfloat-linux-gnueabi/sys <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>install -d /usr/armv5tel-softfloat-linux-gnueabi/sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> mount --bind /usr/portage /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> mount --bind /proc /usr/armv5tel-softfloat-linux-gnueabi/proc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> mount --bind /sys /usr/armv5tel-softfloat-linux-gnueabi/sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> chroot /usr/armv5tel-softfloat-linux-gnueab /bin/busybox mdev -s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> chroot /usr/armv5tel-softfloat-linux-gnueab /bin/bash --login
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># export PS1=&#34;(`uname -m`:chroot:\W) &#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>arm:chroot: /<span style="color:#f92672">)</span> env-update
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>arm:chroot: /<span style="color:#f92672">)</span> exit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> umount /usr/armv5tel-softfloat-linux-gnueabi/sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> umount /usr/armv5tel-softfloat-linux-gnueabi/proc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> umount /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>i684:/ <span style="color:#f92672">)</span> umount /proc/sys/fs/binfmt_misc
+</span></span></code></pre></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='http://localhost:1313/js/toc.js'></script>
+<link rel="stylesheet" href='http://localhost:1313/css/toc.css' />
+
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="http://localhost:1313/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="http://localhost:1313/js/github-style.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Not Good Father</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 17 Mar 2024 14:02:33 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Eearphone</title>
+      <link>http://localhost:1313/categories/eearphone/</link>
+      <pubDate>Sat, 16 Mar 2024 13:14:00 +0900</pubDate>
+      <guid>http://localhost:1313/categories/eearphone/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wired</title>
+      <link>http://localhost:1313/categories/wired/</link>
+      <pubDate>Sat, 16 Mar 2024 13:14:00 +0900</pubDate>
+      <guid>http://localhost:1313/categories/wired/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
