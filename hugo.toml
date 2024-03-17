@@ -11,8 +11,6 @@ hasCJKLanguage = true
 
 [Params]
 subtitle = 'The sound, old pond and frog jump into water.'
-logo = '/images/logo.jpg'
-favicon = '/images/logo.jpg'
 
 [Author]
 author = 'ac1965'

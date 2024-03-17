@@ -5,7 +5,7 @@
 
 #+options: ^:{}
 #+hugo_auto_set_lastmod: t
-#+hugo_section: blog
+#+hugo_section: post
 
 * blog
 ** DONE Test Syntaxhighliter
