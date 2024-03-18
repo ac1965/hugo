@@ -25,3 +25,17 @@ I was born in 1965. Oh, Master! Please give me Laphroaig.
 - [github-style](https://github.com/ac1965/github-style)
 - [Github Pages](https://pages.github.com)
 - [Cloudflare](https://www.cloudflare.com)
+
+## Init Hugo Site
+
+```
+hugo new site hugo-site
+cd hugo-site
+```
+
+### Install the theme
+
+```
+git clone https://github.com/ac1965/github-style.git themes/github-style
+echo themes/github-style >> .gitignore
+```

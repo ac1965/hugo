@@ -22,9 +22,10 @@ pygmentsUseClasses = true
   rss = true
   lastmod = true
   favicon = '/images/github.com'
+  avatar = '/images/avatar.png'
   headerIcon = '/images/GitHub-Mark-Light-32px.png'
   location = 'Japan, /dev/urandom'
-  enableGitalk = true
+  enableGitalk = false
 
 [frontmatter]
   lastmod = ["lastmod", ":fileModTime", ":default"]
