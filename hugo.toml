@@ -8,14 +8,11 @@ enableInlineShortcodes = true
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 
-# theme = 'hugo-theme-stack'
 theme = 'github-style'
-# theme = 'anotale'
-# theme = 'anatole-ext'
+# theme = 'anotale-ext'
 
 # theme 'github-style
-#enableGitInfo = true
-
+enableGitInfo = true
 [Params]
   description = 'The sound, old pond and frog jump into water.'
   author = 'YAMASHITA, Takao'
@@ -29,7 +26,7 @@ theme = 'github-style'
   lastmod = true
   favicon = '/images/github.com'
   avatar = '/images/avatar.png'
-#  headerIcon = '/images/GitHub-Mark-Light-32px.png'
+  headerIcon = '/images/GitHub-Mark-Light-32px.png'
   location = 'Japan, /dev/urandom'
   enableGitalk = false
 

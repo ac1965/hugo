@@ -1,3 +1,4 @@
 public
-themes/github-style
 .hugo_build.lock
+themes/github-style
+themes/anatole
