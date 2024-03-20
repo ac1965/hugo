@@ -1,13 +1,13 @@
 baseURL = 'https://www.ty07.net'
 DefaultContentLanguage = 'ja'
-languageCode = "ja-jp"
+languageCode = 'ja-jp'
 title = 'Not Good Father'
 pagenate = '10'
 enableEmoji = true
 enableInlineShortcodes = true
 pygmentsCodeFences = true
 pygmentsUseClasses = true
-pygmentsStyle = "pastie"
+pygmentsStyle = 'pastie'
 
 theme = 'github-style'
 # theme = 'anotale-ext'
@@ -22,7 +22,7 @@ enableGitInfo = true
   facebook = 'ac1965'
   instagram = 'tjy1965'
   email = 'tjy1965@gmail.com'
-  url = 'https://ty07.net'
+  url = 'https://www.ty07.net'
   rss = true
   lastmod = true
   favicon = '/images/github.com'
@@ -32,4 +32,4 @@ enableGitInfo = true
   enableGitalk = false
 
 [frontmatter]
-  lastmod = ["lastmod", ":fileModTime", ":default"]
+  lastmod = ['lastmod', ':fileModTime', ':default']
