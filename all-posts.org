@@ -2542,32 +2542,52 @@ https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-大滝詠一/dp/B0007NFTP
 元ネタというか体に染み付いているんだろうね。ここはパクリと言ってはいけない(笑)
 
 *** 君は天然色
+
+#+begin_export hugo
 {{< youtube lMzAd4DBNWI >}}
+#+end_export
 
 The Pixies Three - Cold Cold Winter
+
+#+begin_export hugo
 {{< youtube Ta3U5wN9IlU >}}
+#+end_export
 
 The Honeycombs - Color Slide
+#+begin_export hugo
 {{< youtube GtjPgTNRl30 >}}
-
+#+end_export
 
 *** 風立ちぬ
+#+begin_export hugo
 {{< youtube Iu2TNkaqMKQ >}}
+#+end_export
 
 Jimmy Clanton - Venus In Blue Jeans
+#+begin_export hugo
 {{< youtube _13davmxPb4 >}}
+#+end_export
 
 *** 夢で逢えたら
+#+begin_export hugo
 {{< youtube VLe-bHNwFCo >}}
+#+end_export
 
 The Shirelles - Foolish Little Girl
+#+begin_export hugo
 {{< youtube 8zAX5StHD6A >}}
+#+end_export
 
 *** うなずきマーチ
+#+begin_export hugo
 {{< youtube Nxn-wrZrSXk >}}
+#+end_export
+
 
 The Rivingtons - Papa Oom Mow Mow
+#+begin_export hugo
 {{< youtube EQrQjNNZCAo >}}
+#+end_export
 ** DONE 2021 GW なろう系小説
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-4317-c611
