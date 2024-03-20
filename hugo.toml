@@ -1,4 +1,4 @@
-baseURL = "https://ty07.net/"
+baseURL = 'https://www.ty07.net'
 DefaultContentLanguage = 'ja'
 languageCode = "ja-jp"
 title = 'Not Good Father'
