@@ -1,14 +1,20 @@
-baseURL = 'https://www.ty07.net'
-title = 'Not Good Father'
+baseURL = "https://www.ty07.net/"
 DefaultContentLanguage = 'ja'
-languageCode = 'ja-jp'
+languageCode = "ja-jp"
+title = 'Not Good Father'
 pagenate = '10'
-theme = 'github-style'
 enableEmoji = true
 enableInlineShortcodes = true
-enableGitInfo = true
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+
+# theme = 'hugo-theme-stack'
+theme = 'github-style'
+# theme = 'anotale'
+# theme = 'anatole-ext'
+
+# theme 'github-style
+#enableGitInfo = true
 
 [Params]
   description = 'The sound, old pond and frog jump into water.'
@@ -23,7 +29,7 @@ pygmentsUseClasses = true
   lastmod = true
   favicon = '/images/github.com'
   avatar = '/images/avatar.png'
-  headerIcon = '/images/GitHub-Mark-Light-32px.png'
+#  headerIcon = '/images/GitHub-Mark-Light-32px.png'
   location = 'Japan, /dev/urandom'
   enableGitalk = false
 

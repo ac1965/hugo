@@ -15,27 +15,7 @@ I was born in 1965. Oh, Master! Please give me Laphroaig.
 - Node
 - HTML / JavaScript / CSS
 
-# Repos
-- [.emacs.d](https://github.com/ac1965/.emacs.d)
-- [dotfiles](https://github.com/ac1965/dotfiles)
-- [archstrike-novnc](https://github.com/ac1965/archstrike-novnc)
-
-# Build this site
-- [Hugo](https://gohugo.io)
-- [github-style](https://github.com/MeiK2333/github-style)
-- [Github Pages](https://pages.github.com)
-- [Cloudflare](https://www.cloudflare.com)
-
-## Init Hugo Site
-
-```
-hugo new site hugo-site
-cd hugo-site
-```
-
-### Install the theme
-
-```
-git clone https://github.com/ac1965/github-style.git themes/github-style
-echo themes/github-style >> .gitignore
-```
+# Link
+- [github](https://github.com/ac1965)
+- [twitter](https://twitter.com/ac1965)
+- [instagram](https://www.instagram.com/tjy1965)
