@@ -2668,3 +2668,13 @@ Apple AirPods Proは落としてシャリシャリしているし[[https://www.a
 寝ながらフォンとしても、音質・音圧も好みで一軍利用。
 
 [[file:/images/coffee-bean.png]]
+** TODO Hugoのテーマを変えてみた
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-a1d8-10a1
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: hugo
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:END:
+* Hugoについて
+* テーマをGithub風のgithub-styleにした
