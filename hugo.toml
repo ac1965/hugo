@@ -2,7 +2,7 @@ baseURL = 'https://www.ty07.net'
 DefaultContentLanguage = 'ja'
 languageCode = 'ja-jp'
 title = 'Not Good Father'
-pagenate = '10'
+pagenate = 5
 enableEmoji = true
 enableInlineShortcodes = true
 pygmentsCodeFences = true
@@ -11,12 +11,14 @@ pygmentsStyle = 'pastie'
 
 theme = 'github-style'
 # theme = 'anotale-ext'
+# theme = 'PaperMod'
 
 # theme 'github-style
 enableGitInfo = true
 [Params]
   description = 'The sound, old pond and frog jump into water.'
   author = 'YAMASHITA, Takao'
+
   github = 'ac1965'
   twitter = 'ac1965'
   facebook = 'ac1965'
@@ -32,4 +34,4 @@ enableGitInfo = true
   enableGitalk = false
 
 [frontmatter]
-  lastmod = ['lastmod', ':fileModTime', ':default']
+   lastmod = ['lastmod', ':fileModTime', ':default']

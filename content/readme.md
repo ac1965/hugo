@@ -1,8 +1,8 @@
----
-title: "about"
-date: 2015-04-28 11:40:29
-draft: false
----
++++
+date = '2015-04-28 11:40:29'
+draft = false
+title = 'about'
++++
 {{< figure src="/images/about.jpg" >}}
 
 # About Me
