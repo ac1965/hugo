@@ -56,7 +56,7 @@ favicon = '/images/github.com'
 avatar = '/images/avatar.png'
 headerIcon = '/images/GitHub-Mark-Light-32px.png'
 location = 'Japan, /dev/urandom'
-enableGitalk = false
+enableGitalk = true
 
 [simpleAnalytics]
 # enable = true
@@ -75,3 +75,17 @@ enableGitalk = false
 [math]
 enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
 use = "katex"  # options: "katex", "mathjax". default is "katex".
+
+## Fitalk
+[gitalk]
+clientID = '646f2681a48c8a183175'
+lientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
+repo = 'hugo-blog'
+owner = 'ac1965'
+admin = 'ac1965'
+id = 'jp.pathname'
+labels = 'gitalk'
+perPage = 30
+pagerDirection = 'last'
+createIssueManually = true
+distractionFreeMode = false
