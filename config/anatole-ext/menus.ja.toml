@@ -5,7 +5,7 @@
   url = "/"
 
   [[main]]
-  name = "Archives"
+  name = "Posts"
   weight = 200
   identifier = "posts"
   url = "/post/"

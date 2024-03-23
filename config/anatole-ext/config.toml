@@ -5,12 +5,14 @@ title = 'Not Good Father'
 
 theme = 'anatole-ext'
 
+paginate = 5
+
 summarylength = 10
 enableEmoji = true
-enableRobotsTXT = true
 enableInlineShortcodes = true
-enableGitInfo = true
+enableRobotsTXT = true
 hasCJKLanguage = true
+enableGitInfo = true
 
 # Enable Disqus
 #disqusShortname = ""

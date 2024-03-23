@@ -1,0 +1,15 @@
+# defaultTheme = auto
+# disableThemeToggle: true
+ShowShareButtons = true
+ShowReadingTime = true
+# disableSpecial1stPost: true
+displayFullLangName = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowRssButtonInSectionTermList = true
+
+ShowAllPagesInArchive = true
+ShowPageNums = true
+ShowToc = true
+

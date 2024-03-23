@@ -5,9 +5,14 @@ title = 'Not Good Father'
 
 theme = 'github-style'
 
+paginate = 5
+
 summarylength = 10
 enableEmoji = true
+enableInlineShortcodes = true
 enableRobotsTXT = true
+hasCJKLanguage = true
+enableGitInfo = true
 
 # Enable Disqus
 #disqusShortname = ""
