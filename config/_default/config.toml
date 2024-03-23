@@ -3,7 +3,7 @@ DefaultContentLanguage = 'ja'
 languageCode = 'ja-jp'
 title = 'Not Good Father'
 
-theme = 'github-style'
+theme = 'anatole-ext'
 
 paginate = 5
 
