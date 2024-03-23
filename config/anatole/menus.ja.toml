@@ -5,13 +5,19 @@
   url = "/"
 
   [[main]]
-  name = "Posts"
+  name = "Archives"
   weight = 200
   identifier = "posts"
   url = "/post/"
 
   [[main]]
-  name = "About"
+  name = "Tags"
+  weight = 300
+  identifier = "tags"
+  url = "/tags/"
+
+  [[main]]
+  name = "ReadMe"
   weight = 400
-  identifier = "about"
-  url = "/about/"
+  identifier = "readme"
+  url = "/readme/"

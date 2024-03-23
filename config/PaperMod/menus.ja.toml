@@ -1,8 +1,8 @@
   [[main]]
-  name = "Home"
-  identifier = "home"
+  name = "Archives"
+  identifier = "archives"
   weight = 100
-  url = "/"
+  url = "/archives/"
 
   [[main]]
   name = "Posts"
@@ -11,7 +11,19 @@
   url = "/post/"
 
   [[main]]
-  name = "About"
+  name = "Search"
+  weight = 300
+  identifier = "search"
+  url = "/search/"
+
+  [[main]]
+  name = "Tags"
   weight = 400
+  identifier = "tags"
+  url = "/tags/"
+
+  [[main]]
+  name = "About"
+  weight = 500
   identifier = "about"
-  url = "/about/"
+  url = "/readme/"

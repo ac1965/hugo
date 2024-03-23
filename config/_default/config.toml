@@ -3,14 +3,14 @@ DefaultContentLanguage = 'ja'
 languageCode = 'ja-jp'
 title = 'Not Good Father'
 
-theme = 'anatole-ext'
+theme = 'PaperMod'
+
+paginate = 5
 
 summarylength = 10
 enableEmoji = true
-enableRobotsTXT = true
 enableInlineShortcodes = true
-enableGitInfo = true
-hasCJKLanguage = true
+enableRobotsTXT = true
 
 # Enable Disqus
 #disqusShortname = ""

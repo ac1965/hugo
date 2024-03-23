@@ -5,8 +5,11 @@ title = 'Not Good Father'
 
 theme = 'PaperMod'
 
+paginate = 5
+
 summarylength = 10
 enableEmoji = true
+enableInlineShortcodes = true
 enableRobotsTXT = true
 
 # Enable Disqus

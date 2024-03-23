@@ -3,7 +3,7 @@ title = "No Good Father"
 author = "YAMASHITA, Takao"
 #copyright = "2020-2021"
 description = "The sound, old pond and frog jump into water."
-logo = "avator.png"
+logo = "/images/avatar.png"
 keywords = ""
 favicon = "favicons/"
 # example ["css/custom.css"]

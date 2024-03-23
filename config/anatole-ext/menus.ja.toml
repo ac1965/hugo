@@ -17,7 +17,7 @@
   url = "/tags/"
 
   [[main]]
-  name = "About"
+  name = "ReadMe"
   weight = 400
-  identifier = "about"
-  url = "/about/"
+  identifier = "readme"
+  url = "/readme/"
