@@ -5,9 +5,9 @@ title = 'Not Good Father'
 
 theme = 'github-style'
 
-paginate = 5
+paginate = 10
 
-summarylength = 10
+#summarylength = 30
 enableEmoji = true
 enableInlineShortcodes = true
 enableRobotsTXT = true
@@ -26,7 +26,7 @@ pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 
 # Localized dates requires Hugo version 0.87.0
-localizedDates = false
+localizedDates = true
 
 [markup]
     [markup.goldmark]
@@ -48,3 +48,6 @@ localizedDates = false
 [[related.indices]]
   name = 'tags'
   weight = 80
+
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]

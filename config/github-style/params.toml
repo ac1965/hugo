@@ -1,27 +1,27 @@
 
-title = "No Good Father"
-author = "YAMASHITA, Takao"
-#copyright = "2020-2021"
-description = "The sound, old pond and frog jump into water."
-keywords = ""
-# example ["css/custom.css"]
+#title = 'No Good Father'
+author = 'YAMASHITA, Takao'
+#copyright = '2020-2021'
+description = 'The sound, old pond and frog jump into water.'
+keywords = ''
+# example ['css/custom.css']
 customCss = []
-# example ["js/custom.js"]
+# example ['js/custom.js']
 customJs = []
-mainSections = ["post"]
+mainSections = ['post']
 doNotLoadAnimations = false
 # Form Spree Contact Form
-#contactFormAction = "https://formspree.io/f/your-form-hash-here"
-#contactFormReCaptcha = "your-site-key-here"
+#contactFormAction = 'https://formspree.io/f/your-form-hash-here'
+#contactFormReCaptcha = 'your-site-key-here'
 # Google Fonts
-#googleFonts = ["Indie+Flower", "Roboto:ital,wght@0,100;0,400;0,700;1,400"]
+#googleFonts = ['Indie+Flower', 'Roboto:ital,wght@0,100;0,400;0,700;1,400']
 # Google Site Verify
-#googleSiteVerify = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+#googleSiteVerify = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 # Commento Comments
-# CommentoURL = "https://commento.example.com/js/commento.js"
+# CommentoURL = 'https://commento.example.com/js/commento.js'
 # Read More links for truncated summaries
 # readMore = true
-# postSectionName = "blog"
+# postSectionName = 'blog'
 # relatedPosts = true
 # numberOfRelatedPosts = 3
 
@@ -60,32 +60,42 @@ enableGitalk = true
 
 [simpleAnalytics]
 # enable = true
-# customurl = "https://analytics.example.com"
+# customurl = 'https://analytics.example.com'
 
 [plausibleAnalytics]
-# domain = "example.com"
-# serverURL = "https://analytics.example.com"
+# domain = 'example.com'
+# serverURL = 'https://analytics.example.com'
 
 [umami]
-# serverURL = "example.com"
-# id = "94db1cb1-74f4-4a40-ad6c-962362670409"
-# trackerScriptName = "mycustomscriptname.js"
+# serverURL = 'example.com'
+# id = '94db1cb1-74f4-4a40-ad6c-962362670409'
+# trackerScriptName = 'mycustomscriptname.js'
 
 ## Math settings
 [math]
 enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
-use = "katex"  # options: "katex", "mathjax". default is "katex".
+use = 'katex'  # options: 'katex', 'mathjax'. default is 'katex'.
 
-## Fitalk
+## Gitalk
+## 
 [gitalk]
 clientID = '646f2681a48c8a183175'
 lientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
-repo = 'hugo-blog'
+repo = 'hugo'
 owner = 'ac1965'
 admin = 'ac1965'
-id = 'jp.pathname'
+id = 'location.pathname'
 labels = 'gitalk'
 perPage = 30
 pagerDirection = 'last'
 createIssueManually = true
 distractionFreeMode = false
+
+ [[links]]
+ title = 'github'
+ href = 'https://github.com/ac1965'
+
+ [[links]]
+ title = 'link'
+ href = 'https://www.ty07.net/'
+ icon = 'https://www.ty07.net/images/avatar.png'
