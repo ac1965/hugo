@@ -80,7 +80,7 @@ use = 'katex'  # options: 'katex', 'mathjax'. default is 'katex'.
 ## 
 [gitalk]
 clientID = '646f2681a48c8a183175'
-lientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
+clientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
 repo = 'hugo'
 owner = 'ac1965'
 admin = 'ac1965'
@@ -90,12 +90,3 @@ perPage = 30
 pagerDirection = 'last'
 createIssueManually = true
 distractionFreeMode = false
-
- [[links]]
- title = 'github'
- href = 'https://github.com/ac1965'
-
- [[links]]
- title = 'link'
- href = 'https://www.ty07.net/'
- icon = 'https://www.ty07.net/images/avatar.png'
