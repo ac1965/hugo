@@ -49,5 +49,5 @@ localizedDates = true
   name = 'tags'
   weight = 80
 
-[frontmatter]
-  lastmod = ["lastmod", ":fileModTime", ":default"]
+#[frontmatter]
+#  lastmod = ["lastmod", ":fileModTime", ":default"]
