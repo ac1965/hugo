@@ -81,7 +81,7 @@ use = 'katex'  # options: 'katex', 'mathjax'. default is 'katex'.
 [gitalk]
 clientID = '646f2681a48c8a183175'
 clientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
-repo = 'hugo'
+repo = 'ac1965.github.io'
 owner = 'ac1965'
 admin = 'ac1965'
 id = 'location.pathname'
