@@ -10,6 +10,7 @@ customCss = []
 customJs = []
 mainSections = ['post']
 doNotLoadAnimations = false
+pin = true
 # Form Spree Contact Form
 #contactFormAction = 'https://formspree.io/f/your-form-hash-here'
 #contactFormReCaptcha = 'your-site-key-here'
